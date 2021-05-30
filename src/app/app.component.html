@@ -6,9 +6,9 @@
     mat-button
     (click)="snav.toggle()"
   >
-    <mat-icon>menu</mat-icon>
+    <fa-icon [icon]="faBars"></fa-icon>
   </button>
-  <span>Bonjour M. Anouar</span>
+  <span>{{ title }}</span>
 
   <div fxFlex></div>
 
@@ -18,15 +18,15 @@
     aria-label="Example icon-button with heart icon"
     [matMenuTriggerFor]="menu"
   >
-    <mat-icon>account_circle</mat-icon>
+    <fa-icon [icon]="faUserCircle" size="lg"></fa-icon>
   </button>
   <mat-menu #menu="matMenu">
     <button mat-menu-item>
-      <mat-icon>settings</mat-icon>
+      <fa-icon [icon]="faCog" size="lg"></fa-icon>
       <span>Paramétres</span>
     </button>
     <button mat-menu-item>
-      <mat-icon>exit_to_app</mat-icon>
+      <fa-icon [icon]="faSignOutAlt" size="lg"></fa-icon>
       <span>Se Déconnecter</span>
     </button>
   </mat-menu>
@@ -35,12 +35,42 @@
 <mat-sidenav-container class="example-sidenav-container">
   <mat-sidenav #snav>
     <mat-nav-list fxLayout="column" fxLayoutAlign="start center">
-      <mat-list-item>
-        <mat-icon mat-list-icon>dashboard</mat-icon> Dashboard</mat-list-item
-      >
       <mat-list-item
-        ><i class="fas fa-prescription"></i> Medicine</mat-list-item
+        fxLayout="row"
+        fxLayoutAlign="start none"
+        routerLink="/dashboard"
+        routerLinkActive="active"
       >
+        <fa-icon [icon]="faTachometerAlt" size="lg"></fa-icon>
+        <span>Dashboard</span>
+      </mat-list-item>
+
+      <mat-list-item
+        fxLayout="row"
+        fxLayoutAlign="start none"
+        routerLink="/drugs"
+        routerLinkActive="active"
+      >
+        <fa-icon [icon]="faPrescriptionBottleAlt" size="lg"></fa-icon>
+        <span>Medicine</span>
+      </mat-list-item>
+      <mat-list-item
+        fxLayout="row"
+        fxLayoutAlign="start none"
+        routerLink="/sales"
+        routerLinkActive="active"
+      >
+        <fa-icon [icon]="faMoneyBillWave" size="lg"></fa-icon
+        ><span>Ventes</span>
+      </mat-list-item>
+      <mat-list-item
+        fxLayout="row"
+        fxLayoutAlign="start none"
+        routerLink="/reporting"
+        routerLinkActive="active"
+      >
+        <fa-icon [icon]="faChartBar" size="lg"></fa-icon><span>Reporting</span>
+      </mat-list-item>
     </mat-nav-list>
   </mat-sidenav>
 
@@ -49,6 +79,6 @@
     fxLayoutAlign="center center"
     class="main"
   >
-    Testing content
+    <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>

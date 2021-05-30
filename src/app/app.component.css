@@ -5,7 +5,10 @@
 .mat-drawer {
   width: 15%;
 }
+.mat-list-item fa-icon {
+  width: 40px;
+}
 
-.mat-nav-list a {
-  margin: 15px;
+.mat-menu-item fa-icon {
+  margin-right: 10px;
 }
