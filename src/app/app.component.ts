@@ -16,7 +16,7 @@ import {
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  title = 'Pharmacy System';
+  title = 'Systéme de Gestion de Pharmacie';
 
   faPrescriptionBottleAlt = faPrescriptionBottleAlt;
   faTachometerAlt = faTachometerAlt;

@@ -6,22 +6,22 @@ const routes: Routes = [
   {
     path: 'drugs',
     loadChildren: () =>
-      import('./drugs/drugs.module').then((m) => m.DrugsModule),
+      import('./pages/drugs/drugs.module').then((m) => m.DrugsModule),
   },
   {
     path: 'dashboard',
     loadChildren: () =>
-      import('./dashboard/dashboard.module').then((m) => m.DashboardModule),
+      import('./pages/dashboard/dashboard.module').then((m) => m.DashboardModule),
   },
   {
     path: 'sales',
     loadChildren: () =>
-      import('./sales/sales.module').then((m) => m.SalesModule),
+      import('./pages/sales/sales.module').then((m) => m.SalesModule),
   },
   {
     path: 'reporting',
     loadChildren: () =>
-      import('./reporting/reporting.module').then((m) => m.ReportingModule),
+      import('./pages/reporting/reporting.module').then((m) => m.ReportingModule),
   },
 ];
 
