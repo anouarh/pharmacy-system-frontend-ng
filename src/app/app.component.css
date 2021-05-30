@@ -1,0 +1,11 @@
+.main {
+  height: 90vh;
+}
+
+.mat-drawer {
+  width: 15%;
+}
+
+.mat-nav-list a {
+  margin: 15px;
+}
