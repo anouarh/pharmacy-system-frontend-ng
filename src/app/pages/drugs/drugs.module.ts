@@ -8,7 +8,9 @@ import { MatTableModule } from '@angular/material/table';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatCardModule } from '@angular/material/card';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import {MatButtonModule} from '@angular/material/button'; 
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   declarations: [DrugsComponent],
@@ -19,7 +21,9 @@ import {MatButtonModule} from '@angular/material/button';
     MatProgressSpinnerModule,
     MatCardModule,
     FontAwesomeModule,
-    MatButtonModule
+    MatButtonModule,
+    MatInputModule,
+    FlexLayoutModule,
   ],
 })
 export class DrugsModule {}

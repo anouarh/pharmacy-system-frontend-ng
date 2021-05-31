@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpService } from 'src/app/services/http.service';
 import { environment } from 'src/environments/environment';
-import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faEdit, faTrash, faSearch, faAddressCard, faPlus } from '@fortawesome/free-solid-svg-icons';
 
 let endPointDrugs = environment.api + 'drugs';
 
@@ -27,6 +27,8 @@ export class DrugsComponent implements OnInit {
 
   faEdit = faEdit;
   faTrash = faTrash;
+  faSearch = faSearch;
+  faPlus = faPlus;
 
   constructor(public http: HttpService) {}
 
