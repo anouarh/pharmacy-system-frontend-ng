@@ -1,8 +1,9 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
+  { path: '', redirectTo: '/drugs', pathMatch: 'full' },
   {
     path: 'drugs',
     loadChildren: () =>
@@ -11,7 +12,9 @@ const routes: Routes = [
   {
     path: 'dashboard',
     loadChildren: () =>
-      import('./pages/dashboard/dashboard.module').then((m) => m.DashboardModule),
+      import('./pages/dashboard/dashboard.module').then(
+        (m) => m.DashboardModule
+      ),
   },
   {
     path: 'sales',
@@ -21,7 +24,9 @@ const routes: Routes = [
   {
     path: 'reporting',
     loadChildren: () =>
-      import('./pages/reporting/reporting.module').then((m) => m.ReportingModule),
+      import('./pages/reporting/reporting.module').then(
+        (m) => m.ReportingModule
+      ),
   },
 ];
 
