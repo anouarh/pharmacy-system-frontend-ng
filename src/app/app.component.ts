@@ -8,6 +8,7 @@ import {
   faSignOutAlt,
   faMoneyBillWave,
   faChartBar,
+  faSignInAlt,
 } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -26,4 +27,5 @@ export class AppComponent {
   faSignOutAlt = faSignOutAlt;
   faMoneyBillWave = faMoneyBillWave;
   faChartBar = faChartBar;
+  faSignInAlt = faSignInAlt;
 }

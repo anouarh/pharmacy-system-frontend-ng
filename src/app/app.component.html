@@ -12,12 +12,15 @@
 
   <div fxFlex></div>
 
-  <button
-    mat-icon-button
-    class="example-icon favorite-icon"
-    aria-label="Example icon-button with heart icon"
-    [matMenuTriggerFor]="menu"
-  >
+  <button mat-icon-button>
+    <fa-icon
+      [icon]="faSignInAlt"
+      size="lg"
+      routerLink="/login"
+      routerLinkActive="active"
+    ></fa-icon>
+  </button>
+  <button mat-icon-button [matMenuTriggerFor]="menu">
     <fa-icon [icon]="faUserCircle" size="lg"></fa-icon>
   </button>
   <mat-menu #menu="matMenu">
@@ -74,7 +77,7 @@
     </mat-nav-list>
   </mat-sidenav>
 
-  <mat-sidenav-content>
+  <mat-sidenav-content class="main">
     <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>
