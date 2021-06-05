@@ -1,3 +1,4 @@
+import { HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
@@ -19,17 +20,31 @@ export class LoginComponent implements OnInit {
     this.isLoginMode = !this.isLoginMode;
   }
 
-  openDialog() {}
+  openDialog() {
+    this.dialog.open(SignupDialogComponent);
+  }
+
+  login() {}
 
   onSubmit(form: NgForm) {
     if (!form.valid) return;
-    const email = form.value.email;
+    const username = form.value.username;
     const password = form.value.password;
 
     if (this.isLoginMode) {
+      this.authService.login(username, password).subscribe((resData) => {
+        console.log(resData);
+      });
     } else {
+      this.openDialog();
     }
 
     form.reset();
   }
 }
+
+@Component({
+  selector: 'signup-dialog',
+  templateUrl: 'signup-dialog.component.html',
+})
+export class SignupDialogComponent {}

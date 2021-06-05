@@ -7,15 +7,14 @@
   <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)">
     <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px">
       <mat-form-field appearance="outline">
-        <mat-label>Email</mat-label>
+        <mat-label>Username</mat-label>
         <input
           matInput
-          type="email"
-          id="email"
+          type="username"
+          id="username"
           ngModel
-          name="email"
+          name="username"
           required
-          email
         />
       </mat-form-field>
       <mat-form-field appearance="outline">
@@ -27,15 +26,9 @@
           ngModel
           name="password"
           required
-          minlength="6"
         />
       </mat-form-field>
-      <button
-        mat-raised-button
-        type="submit"
-        [disabled]="!authForm.valid"
-        (click)="isLoginMode ? login() : openDialog()"
-      >
+      <button mat-raised-button type="submit" [disabled]="!authForm.valid">
         {{ isLoginMode ? "Login" : "Sign up" }}
       </button>
       <button mat-raised-button (click)="onSwitchMode()" type="button">
