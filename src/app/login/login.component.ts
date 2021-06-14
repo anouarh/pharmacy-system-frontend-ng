@@ -2,6 +2,7 @@ import { HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { AuthService } from './auth.service';
 
 @Component({
@@ -12,7 +13,11 @@ import { AuthService } from './auth.service';
 export class LoginComponent implements OnInit {
   isLoginMode = true;
 
-  constructor(private authService: AuthService, public dialog: MatDialog) {}
+  constructor(
+    private authService: AuthService,
+    public dialog: MatDialog,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {}
 
@@ -34,6 +39,7 @@ export class LoginComponent implements OnInit {
     if (this.isLoginMode) {
       this.authService.login(username, password).subscribe((resData) => {
         console.log(resData);
+        this.router.navigate(['/drugs']);
       });
     } else {
       this.openDialog();

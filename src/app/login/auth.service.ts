@@ -7,6 +7,11 @@ import { tap } from 'rxjs/operators';
 
 let loginEndpoint = environment.api + 'login';
 
+export interface AuthResponsData {
+  username: string;
+  token: string;
+}
+
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   user = new Subject<User>();
@@ -17,17 +22,13 @@ export class AuthService {
 
   login(username: string, password: string) {
     return this.http
-      .post(
-        loginEndpoint,
-        {
-          username: username,
-          password: password,
-        },
-        { observe: 'response' }
-      )
+      .post<AuthResponsData>(loginEndpoint, {
+        username: username,
+        password: password,
+      })
       .pipe(
         tap((resData) => {
-          this.handleAuthentication(username, 'token');
+          this.handleAuthentication(username, resData.token);
         })
       );
   }
