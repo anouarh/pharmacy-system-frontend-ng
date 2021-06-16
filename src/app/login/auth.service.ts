@@ -4,6 +4,7 @@ import { Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { User } from '../models/user.model';
 import { tap } from 'rxjs/operators';
+import { BehaviorSubject } from 'rxjs';
 
 let loginEndpoint = environment.api + 'login';
 
@@ -14,7 +15,9 @@ export interface AuthResponsData {
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  user = new Subject<User>();
+  user = new BehaviorSubject<User>(null);
+
+  isAuthenticated = false;
 
   constructor(private http: HttpClient) {}
 
