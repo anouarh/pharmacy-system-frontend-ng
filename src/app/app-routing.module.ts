@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-i;
 
 const routes: Routes = [
   { path: '', redirectTo: '/drugs', pathMatch: 'full' },

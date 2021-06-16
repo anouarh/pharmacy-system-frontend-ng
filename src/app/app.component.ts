@@ -1,28 +1,15 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
-  faPrescriptionBottleAlt,
-  faTachometerAlt,
-  faBars,
-  faUserCircle,
-  faCog,
-  faSignOutAlt,
-  faMoneyBillWave,
-  faChartBar,
-  faSignInAlt,
+  faBars, faChartBar, faCog, faMoneyBillWave, faPrescriptionBottleAlt, faSignInAlt, faSignOutAlt, faTachometerAlt, faUserCircle
 } from '@fortawesome/free-solid-svg-icons';
-import { Subscription } from 'rxjs';
-import { AuthService } from './login/auth.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent implements OnInit, OnDestroy {
+export class AppComponent implements OnInit {
   title = 'Systéme de Gestion de Pharmacie';
-
-  private userSub: Subscription;
-  isAuthenticated = false;
 
   faPrescriptionBottleAlt = faPrescriptionBottleAlt;
   faTachometerAlt = faTachometerAlt;
@@ -34,15 +21,7 @@ export class AppComponent implements OnInit, OnDestroy {
   faChartBar = faChartBar;
   faSignInAlt = faSignInAlt;
 
-  constructor(private authService: AuthService) {}
+  constructor() {}
 
-  ngOnInit(): void {
-    this.userSub = this.authService.user.subscribe((user) => {
-      // !!user  <=> !user ? false : true;
-      this.isAuthenticated = !!user;
-    });
-  }
-  ngOnDestroy(): void {
-    this.userSub.unsubscribe();
-  }
+  ngOnInit(): void {}
 }
