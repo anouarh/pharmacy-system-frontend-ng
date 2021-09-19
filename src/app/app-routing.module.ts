@@ -1,11 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from './login/login.component';
+import { LoginComponent } from './pages/login/login.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/drugs', pathMatch: 'full' },
-  { path: 'login', component: LoginComponent },
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
+
   {
     path: 'drugs',
     loadChildren: () =>
@@ -30,6 +30,7 @@ const routes: Routes = [
         (m) => m.ReportingModule
       ),
   },
+  { path: 'login', component: LoginComponent },
 ];
 
 @NgModule({

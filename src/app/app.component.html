@@ -5,7 +5,6 @@
     aria-label="Example icon-button with menu icon"
     mat-button
     (click)="snav.toggle()"
-    *ngIf="isAuthenticated"
   >
     <fa-icon [icon]="faBars"></fa-icon>
   </button>
@@ -13,18 +12,13 @@
 
   <div fxFlex></div>
 
-  <button
-    mat-icon-button
-    *ngIf="!isAuthenticated"
-    routerLink="/login"
-    routerLinkActive="active"
-  >
+  <button mat-icon-button routerLink="/login" routerLinkActive="active">
     <fa-icon [icon]="faSignInAlt" size="lg"></fa-icon>
   </button>
-  <button mat-icon-button *ngIf="isAuthenticated" routerLinkActive="active">
+  <button mat-icon-button routerLinkActive="active">
     <fa-icon [icon]="faSignOutAlt" size="lg"></fa-icon>
   </button>
-  <button mat-icon-button [matMenuTriggerFor]="menu" *ngIf="isAuthenticated">
+  <button mat-icon-button [matMenuTriggerFor]="menu">
     <fa-icon [icon]="faUserCircle" size="lg"></fa-icon>
   </button>
   <mat-menu #menu="matMenu">
