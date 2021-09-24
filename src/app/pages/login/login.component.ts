@@ -31,12 +31,10 @@ export class LoginComponent implements OnInit {
       .set('grant_type', 'password');
 
     if (this.isLoginMode) {
-      this.auth.login(body.toString()).subscribe(
+      this.auth.login(body.toString(), username).subscribe(
         (data) => {
           console.log(data);
           this.isLoading = false;
-          //window.sessionStorage.setItem('token', JSON.stringify(data));
-          //console.log(window.sessionStorage.getItem('token'));
           this.router.navigate(['dashboard']);
         },
         (error) => {
@@ -46,9 +44,5 @@ export class LoginComponent implements OnInit {
     }
     console.log(form);
     form.reset();
-  }
-
-  logoff() {
-    window.sessionStorage.removeItem('token');
   }
 }

@@ -21,7 +21,12 @@
   >
     <fa-icon [icon]="faSignInAlt" size="lg"></fa-icon>
   </button>
-  <button mat-icon-button routerLinkActive="active" *ngIf="isAuthenticated">
+  <button
+    mat-icon-button
+    routerLinkActive="active"
+    *ngIf="isAuthenticated"
+    (click)="onLogout()"
+  >
     <fa-icon [icon]="faSignOutAlt" size="lg"></fa-icon>
   </button>
   <button mat-icon-button [matMenuTriggerFor]="menu" *ngIf="isAuthenticated">
@@ -86,7 +91,7 @@
     fxLayout="column"
     fxLayoutAlign="center center"
     fxLayoutGap="20px"
-    >
+  >
     <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>
