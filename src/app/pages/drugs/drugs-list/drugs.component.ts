@@ -1,7 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpService } from 'src/app/services/http.service';
 import { environment } from 'src/environments/environment';
-import { faEdit, faTrash, faSearch, faAddressCard, faPlus } from '@fortawesome/free-solid-svg-icons';
+import {
+  faEdit,
+  faTrash,
+  faSearch,
+  faAddressCard,
+  faPlus,
+} from '@fortawesome/free-solid-svg-icons';
+import { DrugsService } from 'src/app/services/drugs.service';
 
 let endPointDrugs = environment.api + 'drugs';
 
@@ -30,14 +37,14 @@ export class DrugsComponent implements OnInit {
   faSearch = faSearch;
   faPlus = faPlus;
 
-  constructor(public http: HttpService) {}
+  constructor(public http: HttpService, public drugService: DrugsService) {}
 
   ngOnInit(): void {
     this.getAllDrugs();
   }
 
   getAllDrugs() {
-    this.http.get(endPointDrugs).subscribe((result) => {
+    this.drugService.getDrugs().subscribe((result) => {
       this.drugs = result;
       this.isLoadingResults = false;
       this.resultsLength = this.drugs.total_count;

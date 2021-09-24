@@ -33,9 +33,11 @@ export class LoginComponent implements OnInit {
     if (this.isLoginMode) {
       this.auth.login(body.toString()).subscribe(
         (data) => {
-          window.sessionStorage.setItem('token', JSON.stringify(data));
-          console.log(window.sessionStorage.getItem('token'));
-          this.router.navigate(['drugs']);
+          console.log(data);
+          this.isLoading = false;
+          //window.sessionStorage.setItem('token', JSON.stringify(data));
+          //console.log(window.sessionStorage.getItem('token'));
+          this.router.navigate(['dashboard']);
         },
         (error) => {
           alert(error.error.error_description);
@@ -46,4 +48,7 @@ export class LoginComponent implements OnInit {
     form.reset();
   }
 
+  logoff() {
+    window.sessionStorage.removeItem('token');
+  }
 }

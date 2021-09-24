@@ -1,14 +1,22 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { CommaExpr } from '@angular/compiler';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map } from 'rxjs/operators';
-import { environment } from 'src/environments/environment';
+import { BehaviorSubject, Subject } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
+import { User } from '../services/user.model';
+
+export interface AuthResponseData {
+  access_token: string;
+  token_type: string;
+  refresh_token: string;
+  expires_in: number;
+  scope: string;
+}
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  static AUTH_URL = environment.authUrl;
+  user = new BehaviorSubject<User>(null);
 
   constructor(private http: HttpClient) {}
 
@@ -17,10 +25,26 @@ export class AuthService {
       Authorization: 'Basic ' + btoa('devglan-client:devglan-secret'),
       'Content-type': 'application/x-www-form-urlencoded',
     };
-    return this.http.post(
-      'http://localhost:8080/' + 'oauth/token',
-      loginPayload,
-      { headers }
-    );
+    return this.http
+      .post<AuthResponseData>(
+        'http://localhost:8080/' + 'oauth/token',
+        loginPayload,
+        { headers }
+      )
+      .pipe(
+        catchError(null),
+        tap((res) => {
+          const expirationDate = new Date(
+            new Date().getTime() + +res.expires_in * 1000
+          );
+          const user = new User(
+            'Alex123',
+            '123456',
+            res.access_token,
+            expirationDate
+          );
+          this.user.next(user);
+        })
+      );
   }
 }

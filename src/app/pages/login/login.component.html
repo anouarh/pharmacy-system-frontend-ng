@@ -38,12 +38,12 @@
         type="submit"
         [disabled]="!authForm.valid"
       >
-        {{ isLoginMode ? "Log in" : "Sign up" }}
+        Log in
       </button>
     </p>
     <p id="p-login">
-      <button mat-flat-button color="accent" (click)="onSwitchMode()">
-        Switch to {{ isLoginMode ? "Sign up" : "Log in" }}
+      <button mat-flat-button color="accent" (click)="logoff()" disabled="isLoginMode">
+        Log off
       </button>
     </p>
   </form>
