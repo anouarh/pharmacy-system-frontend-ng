@@ -9,6 +9,7 @@ import {
   faPlus,
 } from '@fortawesome/free-solid-svg-icons';
 import { DrugsService } from 'src/app/services/drugs.service';
+import { User } from 'src/app/services/user.model';
 
 let endPointDrugs = environment.api + 'drugs';
 
@@ -31,6 +32,7 @@ export class DrugsComponent implements OnInit {
     'natureDuProduit',
     'actions',
   ];
+  currentUser: any;
 
   faEdit = faEdit;
   faTrash = faTrash;
@@ -40,15 +42,28 @@ export class DrugsComponent implements OnInit {
   constructor(public http: HttpService, public drugService: DrugsService) {}
 
   ngOnInit(): void {
+    this.getUserData();
     this.getAllDrugs();
   }
 
+  getUserData() {
+    const userData: {
+      username: string;
+      _token: string;
+      _tokenExpirationDate: string;
+    } = JSON.parse(localStorage.getItem('userData'));
+    this.currentUser = userData;
+  }
+
   getAllDrugs() {
-    this.drugService.getDrugs().subscribe((result) => {
-      this.drugs = result;
-      this.isLoadingResults = false;
-      this.resultsLength = this.drugs.total_count;
-      console.log(this.drugs);
-    });
+    this.drugService
+      .getAllByUsername(this.currentUser.username)
+      .subscribe((result) => {
+        this.drugs = result;
+        this.isLoadingResults = false;
+        this.resultsLength = this.drugs.total_count;
+        console.log(this.drugs);
+        localStorage.getItem('userData');
+      });
   }
 }
