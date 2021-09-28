@@ -5,6 +5,7 @@ import {
   faCog,
   faMoneyBillWave,
   faPrescriptionBottleAlt,
+  faReceipt,
   faSignInAlt,
   faSignOutAlt,
   faTachometerAlt,
@@ -22,6 +23,7 @@ export class AppComponent implements OnInit, OnDestroy {
   isAuthenticated = false;
   private userSub: Subscription;
   title = 'Systéme de Gestion de Pharmacie';
+  username: string;
 
   faPrescriptionBottleAlt = faPrescriptionBottleAlt;
   faTachometerAlt = faTachometerAlt;
@@ -32,6 +34,7 @@ export class AppComponent implements OnInit, OnDestroy {
   faMoneyBillWave = faMoneyBillWave;
   faChartBar = faChartBar;
   faSignInAlt = faSignInAlt;
+  faReceipt = faReceipt;
 
   constructor(private auth: AuthService) {}
 
@@ -39,11 +42,13 @@ export class AppComponent implements OnInit, OnDestroy {
     this.auth.autoLogin();
     this.userSub = this.auth.user.subscribe((user) => {
       this.isAuthenticated = !!user;
+      if (this.isAuthenticated) this.username = user.username;
     });
   }
 
   ngOnDestroy(): void {
     this.userSub.unsubscribe();
+    this.username = null;
   }
 
   onLogout() {

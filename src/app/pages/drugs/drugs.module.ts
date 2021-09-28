@@ -10,10 +10,13 @@ import { MatCardModule } from '@angular/material/card';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
+import { MatDialogModule } from '@angular/material/dialog';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { DrugsSearchDialogComponent } from './drugs-search-dialog/drugs-search-dialog.component';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
-  declarations: [DrugsComponent],
+  declarations: [DrugsComponent, DrugsSearchDialogComponent],
   imports: [
     CommonModule,
     DrugsRoutingModule,
@@ -24,6 +27,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatButtonModule,
     MatInputModule,
     FlexLayoutModule,
+    MatDialogModule,
+    MatIconModule,
   ],
+  entryComponents: [DrugsSearchDialogComponent],
 })
 export class DrugsModule {}

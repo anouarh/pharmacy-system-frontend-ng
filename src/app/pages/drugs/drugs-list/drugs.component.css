@@ -1,26 +1,3 @@
-/*.table-container {
-  margin: 40px;
-  padding: 15px;
-  height: 90vh;
-}
-
 table {
   width: 100%;
 }
-
-td,
-th {
-  text-align: center !important;
-}
-
-#actions {
-  text-align: center;
-}
-
-.wd100 {
-  width: 100%;
-}
-
-.brdr {
-  border: 1px solid black;
-}*/

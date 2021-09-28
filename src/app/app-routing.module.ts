@@ -14,6 +14,12 @@ const routes: Routes = [
       import('./pages/drugs/drugs.module').then((m) => m.DrugsModule),
   },
   {
+    path: 'pos',
+    canActivate: [AuthGuard],
+    loadChildren: () =>
+      import('./pages/pos/pos.module').then((m) => m.PosModule),
+  },
+  {
     path: 'dashboard',
     canActivate: [AuthGuard],
     loadChildren: () =>

@@ -21,6 +21,9 @@
   >
     <fa-icon [icon]="faSignInAlt" size="lg"></fa-icon>
   </button>
+  <button mat-button *ngIf="isAuthenticated">
+    {{ username }}
+  </button>
   <button
     mat-icon-button
     routerLinkActive="active"
@@ -37,10 +40,6 @@
       <fa-icon [icon]="faCog" size="lg"></fa-icon>
       <span>Paramétres</span>
     </button>
-    <button mat-menu-item>
-      <fa-icon [icon]="faSignOutAlt" size="lg"></fa-icon>
-      <span>Se Déconnecter</span>
-    </button>
   </mat-menu>
 </mat-toolbar>
 
@@ -56,7 +55,15 @@
         <fa-icon [icon]="faTachometerAlt" size="lg"></fa-icon>
         <span>Dashboard</span>
       </mat-list-item>
-
+      <mat-list-item
+        fxLayout="row"
+        fxLayoutAlign="start none"
+        routerLink="/pos"
+        routerLinkActive="active"
+      >
+        <fa-icon [icon]="faReceipt" size="lg"></fa-icon
+        ><span>Point de Vente</span>
+      </mat-list-item>
       <mat-list-item
         fxLayout="row"
         fxLayoutAlign="start none"
@@ -86,12 +93,7 @@
     </mat-nav-list>
   </mat-sidenav>
 
-  <mat-sidenav-content
-    class="main"
-    fxLayout="column"
-    fxLayoutAlign="center center"
-    fxLayoutGap="20px"
-  >
+  <mat-sidenav-content class="main">
     <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>
