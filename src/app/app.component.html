@@ -45,7 +45,11 @@
 
 <mat-sidenav-container>
   <mat-sidenav #snav>
-    <mat-nav-list fxLayout="column" fxLayoutAlign="start center">
+    <mat-nav-list
+      fxLayout="column"
+      fxLayoutAlign="start center"
+      (click)="snav.toggle()"
+    >
       <mat-list-item
         fxLayout="row"
         fxLayoutAlign="start none"

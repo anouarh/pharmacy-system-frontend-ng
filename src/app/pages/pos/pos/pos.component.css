@@ -9,3 +9,29 @@
 .h100 {
   height: 100%;
 }
+
+.w100 {
+  width: 100%;
+}
+
+.pos-container .mat-form-field {
+  width: 95%;
+  margin-top: 20px;
+}
+
+.orders {
+  overflow: overlay;
+}
+
+.orders mat-card {
+  width: 70%;
+}
+
+.item {
+  width: -webkit-fill-available;
+  padding-left: 20px;
+  height: 80px;
+  padding-right: 25px;
+  cursor: pointer;
+}
+
