@@ -21,6 +21,7 @@
 
 .orders {
   overflow: overlay;
+  height: 100px;
 }
 
 .orders mat-card {
@@ -28,10 +29,23 @@
 }
 
 .item {
-  width: -webkit-fill-available;
   padding-left: 20px;
   height: 80px;
   padding-right: 25px;
   cursor: pointer;
+  line-height: 5px;
 }
 
+.fill-div {
+  width: -webkit-fill-available;
+}
+
+.line {
+  float: right;
+  margin-right: 15px;
+  margin-left: 15px;
+  padding-top: 5px;
+  border-top: solid 2px;
+  border-top-color: currentcolor;
+  border-color: #777;
+}

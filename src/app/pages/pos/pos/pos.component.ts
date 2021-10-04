@@ -1,10 +1,17 @@
-import { Component, OnInit, Renderer2, ViewEncapsulation } from '@angular/core';
+import {
+  AfterViewChecked,
+  Component,
+  ElementRef,
+  OnInit,
+  Renderer2,
+  ViewChild,
+  ViewEncapsulation,
+} from '@angular/core';
 
 export interface Order {
   productName: string;
   quantity: number;
   pricePerUnit: number;
-  total: number;
 }
 
 @Component({
@@ -13,9 +20,11 @@ export interface Order {
   styleUrls: ['./pos.component.css'],
   encapsulation: ViewEncapsulation.None,
 })
-export class PosComponent implements OnInit {
+export class PosComponent implements OnInit, AfterViewChecked {
+  @ViewChild('ordersContainer') private ordersContainer: ElementRef;
   orders: Order[];
   selectedOrder: any;
+  totalPrice: number = 0;
 
   constructor(private rd: Renderer2) {}
 
@@ -25,38 +34,50 @@ export class PosComponent implements OnInit {
         productName: 'Doliprane',
         quantity: 1,
         pricePerUnit: 19.0,
-        total: 19.0,
       },
       {
         productName: 'Rhumix',
         quantity: 2,
         pricePerUnit: 25.0,
-        total: 50.0,
       },
       {
         productName: 'Glucofage',
         quantity: 1,
         pricePerUnit: 21.0,
-        total: 21.0,
       },
       {
         productName: 'Inopril',
         quantity: 1,
         pricePerUnit: 104.0,
-        total: 104.0,
       },
       {
         productName: 'Aspro',
         quantity: 1,
         pricePerUnit: 5.0,
-        total: 5.0,
       },
     ];
+    this.calculateTotalPrice();
+    this.updateScroll();
+  }
+  
+  ngAfterViewChecked(): void {
+    this.updateScroll();
+  }
+
+  calculateTotalPrice() {
+    this.orders.forEach((order) => {
+      this.totalPrice += order.pricePerUnit * order.quantity;
+    });
+  }
+
+  updateScroll() {
+    this.ordersContainer.nativeElement.scrollTop =
+      this.ordersContainer.nativeElement.scrollHeight;
   }
 
   onItemSelect(thisItem) {
     if (this.selectedOrder != null) {
-      this.rd.setStyle(this.selectedOrder, 'background-color', '#fff');
+      this.rd.setStyle(this.selectedOrder, 'background-color', '');
       this.selectedOrder = thisItem;
       this.rd.setStyle(
         thisItem,

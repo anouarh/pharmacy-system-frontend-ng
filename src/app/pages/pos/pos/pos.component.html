@@ -17,21 +17,40 @@
       fxLayoutAlign="start center"
       fxLayoutGap="10px"
       fxFlex="40"
+      #ordersContainer
     >
       <div
         fxLayout="row"
         fxLayoutAlign="space-between start"
         fxLayoutGap="2px"
-        class="item"
+        class="item fill-div"
         *ngFor="let order of orders"
         (click)="onItemSelect(thisItem)"
         #thisItem
       >
         <div>
           <h3>{{ order.productName }}</h3>
-          <p>{{ order.quantity }} Unités à {{ order.pricePerUnit }} / Unité</p>
+          <p style="color: #888">
+            <b>{{ order.quantity | currency: "MAD ":"code":"1.2-2" }}</b> Unités
+            à {{ order.pricePerUnit | currency: "MAD ":"code":"1.2-2" }} / Unité
+          </p>
         </div>
-        <h3>{{ order.quantity * order.pricePerUnit }}</h3>
+        <h3>
+          {{
+            order.quantity * order.pricePerUnit
+              | currency: "MAD ":"code":"1.2-2"
+          }}
+        </h3>
+      </div>
+      <div
+        style="padding-right: 8px; line-height: 0px; padding-bottom: 20px"
+        class="fill-div"
+        fxLayout="row"
+        fxLayoutAlign="end center"
+      >
+        <div class="line">
+          <h2>Total: {{ totalPrice | currency: "MAD ":"code":"1.2-2" }}</h2>
+        </div>
       </div>
     </div>
     <div
