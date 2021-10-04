@@ -23,6 +23,7 @@ export interface Order {
 export class PosComponent implements OnInit, AfterViewChecked {
   @ViewChild('ordersContainer') private ordersContainer: ElementRef;
   orders: Order[];
+  products: Order[];
   selectedOrder: any;
   totalPrice: number = 0;
 
@@ -56,12 +57,39 @@ export class PosComponent implements OnInit, AfterViewChecked {
         pricePerUnit: 5.0,
       },
     ];
+    this.products = [
+      {
+        productName: 'Doliprane',
+        quantity: 1,
+        pricePerUnit: 19.0,
+      },
+      {
+        productName: 'Rhumix',
+        quantity: 2,
+        pricePerUnit: 25.0,
+      },
+      {
+        productName: 'Glucofage',
+        quantity: 1,
+        pricePerUnit: 21.0,
+      },
+      {
+        productName: 'Inopril',
+        quantity: 1,
+        pricePerUnit: 104.0,
+      },
+      {
+        productName: 'Aspro',
+        quantity: 1,
+        pricePerUnit: 5.0,
+      },
+    ];
     this.calculateTotalPrice();
-    this.updateScroll();
+    //this.updateScroll();
   }
-  
+
   ngAfterViewChecked(): void {
-    this.updateScroll();
+    //this.updateScroll();
   }
 
   calculateTotalPrice() {

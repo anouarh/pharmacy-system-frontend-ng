@@ -22,6 +22,7 @@
 .orders {
   overflow: overlay;
   height: 100px;
+  background-color: #fff;
 }
 
 .orders mat-card {
@@ -48,4 +49,12 @@
   border-top: solid 2px;
   border-top-color: currentcolor;
   border-color: #777;
+}
+
+.product {
+  border: 1px solid black;
+  background-color: #fff;
+  height: 100px;
+  width: 100px;
+  cursor: pointer;
 }
