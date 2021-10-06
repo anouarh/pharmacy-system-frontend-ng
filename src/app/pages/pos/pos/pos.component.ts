@@ -1,14 +1,7 @@
-import {
-  AfterViewChecked,
-  Component,
-  ElementRef,
-  OnInit,
-  Renderer2,
-  ViewChild,
-  ViewEncapsulation,
-} from '@angular/core';
+import { Component, OnInit, Renderer2, ViewEncapsulation } from '@angular/core';
 
 export interface Order {
+  id: number;
   productName: string;
   quantity: number;
   pricePerUnit: number;
@@ -20,87 +13,63 @@ export interface Order {
   styleUrls: ['./pos.component.css'],
   encapsulation: ViewEncapsulation.None,
 })
-export class PosComponent implements OnInit, AfterViewChecked {
-  @ViewChild('ordersContainer') private ordersContainer: ElementRef;
-  orders: Order[];
-  products: Order[];
+export class PosComponent implements OnInit {
+  orders: Order[] = [];
+  products: Order[];input
   selectedOrder: any;
   totalPrice: number = 0;
+  ordersExist: boolean = false;
 
   constructor(private rd: Renderer2) {}
 
   ngOnInit(): void {
-    this.orders = [
-      {
-        productName: 'Doliprane',
-        quantity: 1,
-        pricePerUnit: 19.0,
-      },
-      {
-        productName: 'Rhumix',
-        quantity: 2,
-        pricePerUnit: 25.0,
-      },
-      {
-        productName: 'Glucofage',
-        quantity: 1,
-        pricePerUnit: 21.0,
-      },
-      {
-        productName: 'Inopril',
-        quantity: 1,
-        pricePerUnit: 104.0,
-      },
-      {
-        productName: 'Aspro',
-        quantity: 1,
-        pricePerUnit: 5.0,
-      },
-    ];
     this.products = [
       {
+        id: 123,
         productName: 'Doliprane',
         quantity: 1,
         pricePerUnit: 19.0,
       },
       {
+        id: 121,
         productName: 'Rhumix',
         quantity: 2,
         pricePerUnit: 25.0,
       },
+      { id: 173, productName: 'Glucofage', quantity: 1, pricePerUnit: 21.0 },
       {
-        productName: 'Glucofage',
-        quantity: 1,
-        pricePerUnit: 21.0,
-      },
-      {
+        id: 342,
         productName: 'Inopril',
         quantity: 1,
         pricePerUnit: 104.0,
       },
       {
+        id: 213,
         productName: 'Aspro',
         quantity: 1,
         pricePerUnit: 5.0,
       },
     ];
-    this.calculateTotalPrice();
-    //this.updateScroll();
-  }
-
-  ngAfterViewChecked(): void {
-    //this.updateScroll();
   }
 
   calculateTotalPrice() {
-    this.orders.forEach((order) => {
-      this.totalPrice += order.pricePerUnit * order.quantity;
-    });
+    if (this.orders != null && this.orders.length > 0) {
+      this.orders.forEach((order) => {
+        this.totalPrice += order.pricePerUnit * order.quantity;
+      });
+    }
   }
 
-  updateScroll() {
-    this.ordersContainer.nativeElement.scrollTop =
-      this.ordersContainer.nativeElement.scrollHeight;
+  onProductSelect(index) {
+    if (this.orders.includes(this.products[index])) {
+      let orderIndex = this.orders.indexOf(this.products[index]);
+      this.orders[orderIndex]['quantity']++;
+    } else {
+      this.orders.push(this.products[index]);
+    }
+
+    this.ordersExist = true;
+    this.calculateTotalPrice();
   }
 
   onItemSelect(thisItem) {

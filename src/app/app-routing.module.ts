@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './pages/login/login.component';
 import { AuthGuard } from './services/auth.guard';
+import { IsSignedInGuard } from './services/issignedin.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: '/', pathMatch: 'full' },
@@ -41,7 +42,7 @@ const routes: Routes = [
         (m) => m.ReportingModule
       ),
   },
-  { path: 'login', component: LoginComponent },
+  { path: 'login', component: LoginComponent, canActivate: [IsSignedInGuard] },
 ];
 
 @NgModule({

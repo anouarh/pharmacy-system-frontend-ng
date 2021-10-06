@@ -43,6 +43,6 @@ export class LoginComponent implements OnInit {
       );
     }
     console.log(form);
-    form.reset();
+    //form.reset();
   }
 }

@@ -5,7 +5,7 @@
   fxLayoutGap="5px"
 >
   <div
-    class="black-border h100"
+    class="h100"
     fxLayout="column"
     fxLayoutAlign="center center"
     fxLayoutGap="5px"
@@ -49,19 +49,170 @@
         fxLayout="row"
         fxLayoutAlign="end center"
       >
-        <div class="line">
+        <div class="line" *ngIf="ordersExist">
           <h2>Total: {{ totalPrice | currency: "MAD ":"code":"1.2-2" }}</h2>
         </div>
       </div>
     </div>
     <div
-      class="black-border w100"
-      fxLayout="column"
+      class="w100"
+      fxLayout="row"
       fxLayoutAlign="center center"
-      fxLayoutGap="15px"
+      fxLayoutGap="0px"
       fxFlex
     >
-      Numbers, payment, delete etc
+      <div
+        class="black-border"
+        fxLayout="column"
+        fxLayoutAlign="center center"
+        fxFlex="45"
+        style="height: 90%"
+      >
+        Payment
+      </div>
+      <div
+        style="height: 90%"
+        fxLayout="column"
+        fxLayoutAlign="center center"
+        fxFlex="45"
+      >
+        <div class="w100" fxLayout="row" fxLayoutAlign="start start">
+          <div
+            class="calculator-button black-border"
+            fxLayout="column"
+            fxLayoutAlign="center center"
+            fxFlex="25"
+          >
+            <h3>1</h3>
+          </div>
+          <div
+            class="calculator-button black-border"
+            fxLayout="column"
+            fxLayoutAlign="center center"
+            fxFlex="25"
+          >
+            <h3>2</h3>
+          </div>
+          <div
+            class="calculator-button black-border"
+            fxLayout="column"
+            fxLayoutAlign="center center"
+            fxFlex="25"
+          >
+            <h3>3</h3>
+          </div>
+          <div
+            class="calculator-button black-border"
+            fxLayout="column"
+            fxLayoutAlign="center center"
+            fxFlex="25"
+          >
+            <h3>Qty</h3>
+          </div>
+        </div>
+        <div class="w100" fxLayout="row" fxLayoutAlign="start start">
+          <div
+            class="calculator-button black-border"
+            fxLayout="column"
+            fxLayoutAlign="center center"
+            fxFlex="25"
+          >
+            <h3>4</h3>
+          </div>
+          <div
+            class="calculator-button black-border"
+            fxLayout="column"
+            fxLayoutAlign="center center"
+            fxFlex="25"
+          >
+            <h3>5</h3>
+          </div>
+          <div
+            class="calculator-button black-border"
+            fxLayout="column"
+            fxLayoutAlign="center center"
+            fxFlex="25"
+          >
+            <h3>6</h3>
+          </div>
+          <div
+            class="calculator-button black-border"
+            fxLayout="column"
+            fxLayoutAlign="center center"
+            fxFlex="25"
+          >
+            <h3>Disc</h3>
+          </div>
+        </div>
+        <div class="w100" fxLayout="row" fxLayoutAlign="start start">
+          <div
+            class="calculator-button black-border"
+            fxLayout="column"
+            fxLayoutAlign="center center"
+            fxFlex="25"
+          >
+            <h3>7</h3>
+          </div>
+          <div
+            class="calculator-button black-border"
+            fxLayout="column"
+            fxLayoutAlign="center center"
+            fxFlex="25"
+          >
+            <h3>8</h3>
+          </div>
+          <div
+            class="calculator-button black-border"
+            fxLayout="column"
+            fxLayoutAlign="center center"
+            fxFlex="25"
+          >
+            <h3>9</h3>
+          </div>
+          <div
+            class="calculator-button black-border"
+            fxLayout="column"
+            fxLayoutAlign="center center"
+            fxFlex="25"
+          >
+            <h3>Price</h3>
+          </div>
+        </div>
+        <div class="w100" fxLayout="row" fxLayoutAlign="start start">
+          <div
+            class="calculator-button black-border"
+            fxLayout="column"
+            fxLayoutAlign="center center"
+            fxFlex="25"
+          >
+            <h3>+/-</h3>
+          </div>
+          <div
+            class="calculator-button black-border"
+            fxLayout="column"
+            fxLayoutAlign="center center"
+            fxFlex="25"
+          >
+            <h3>0</h3>
+          </div>
+          <div
+            class="calculator-button black-border"
+            fxLayout="column"
+            fxLayoutAlign="center center"
+            fxFlex="25"
+          >
+            <h3>.</h3>
+          </div>
+          <div
+            class="calculator-button black-border"
+            fxLayout="column"
+            fxLayoutAlign="center center"
+            fxFlex="25"
+          >
+            <h3>Rmv</h3>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   <div
@@ -81,15 +232,23 @@
         <mat-label>Rechercher un médicament</mat-label>
         <input matInput />
       </mat-form-field>
-      <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="10px">
+      <div
+        class="product-list"
+        fxLayout="row"
+        fxLayoutAlign="start start"
+        fxLayoutGap="20px"
+      >
         <div
           class="product"
           fxLayout="column"
           fxLayoutAlign="center center"
           fxLayoutGap="10px"
-          *ngFor="let product of products"
+          *ngFor="let product of products; index as i"
+          (click)="onProductSelect(i)"
         >
-          {{ product.productName }}
+          {{ product.id }}
+          <h2>{{ product.productName }}</h2>
+          {{ product.pricePerUnit | currency: "MAD ":"code":"1.2-2" }}
         </div>
       </div>
     </div>

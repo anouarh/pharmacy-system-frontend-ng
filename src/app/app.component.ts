@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import {
   faBars,
   faChartBar,
@@ -36,7 +37,7 @@ export class AppComponent implements OnInit, OnDestroy {
   faSignInAlt = faSignInAlt;
   faReceipt = faReceipt;
 
-  constructor(private auth: AuthService) {}
+  constructor(private auth: AuthService, private router: Router) {}
 
   ngOnInit(): void {
     this.auth.autoLogin();
@@ -53,5 +54,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
   onLogout() {
     this.auth.logout();
+    this.router.navigate(['login']);
   }
 }

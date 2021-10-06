@@ -54,7 +54,15 @@
 .product {
   border: 1px solid black;
   background-color: #fff;
-  height: 100px;
-  width: 100px;
+  height: 150px;
+  width: 150px;
   cursor: pointer;
+}
+
+.product-list {
+  width: 95%;
+}
+
+.calculator-button {
+  height: 70px;
 }
