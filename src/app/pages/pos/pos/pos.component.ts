@@ -4,18 +4,14 @@ import {
   OnInit,
   Renderer2,
   ViewChild,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
-import { faChevronCircleRight } from '@fortawesome/free-solid-svg-icons';
+import { Router } from '@angular/router';
+import {
+  faBackspace,
+  faChevronCircleRight,
+} from '@fortawesome/free-solid-svg-icons';
 import { Product } from 'src/app/services/product.model';
-
-/*export interface Order {
-  id: number;
-  productName: string;
-  quantity: number;
-  pricePerUnit: number;
-  total: number;
-}*/
 
 @Component({
   selector: 'app-pos',
@@ -44,13 +40,19 @@ export class PosComponent implements OnInit {
   priceMode: boolean = false;
 
   faChevronCircleRight = faChevronCircleRight;
+  faBackspace = faBackspace;
 
   @ViewChild('qty', { static: false }) qty: ElementRef;
 
-  constructor(private rd: Renderer2) {}
+  constructor(private rd: Renderer2, private router: Router) {}
 
   ngOnInit(): void {
     this.products = [this.p1, this.p2, this.p3, this.p4, this.p5];
+  }
+
+  onPaymentClick() {
+    console.log('Routing to payment');
+    this.router.navigate(['pos/payment']);
   }
 
   onModeClick(mode) {
@@ -67,12 +69,12 @@ export class PosComponent implements OnInit {
       this.rd.setStyle(mode, 'background-color', '#6EC89B');
       this.rd.setStyle(mode, 'color', '#fff');
     }
-    if (mode.innerText === 'Qty') {
+    if (mode.innerText === 'Qté') {
       this.quantityMode = true;
       this.discountMode = true;
       this.priceMode = true;
       console.log(mode.innerText);
-    } else if (mode.innerText === 'Disc') {
+    } else if (mode.innerText === 'Réduc') {
       this.discountMode = true;
       this.priceMode = false;
       this.quantityMode = false;

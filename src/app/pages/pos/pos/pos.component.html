@@ -69,6 +69,7 @@
         fxLayoutAlign="center center"
         fxFlex="45"
         style="height: 100%"
+        (click)="onPaymentClick()"
       >
         <fa-icon [icon]="faChevronCircleRight" size="3x"></fa-icon>
         <h3>Payment</h3>
@@ -119,7 +120,7 @@
             (click)="onModeClick(qty)"
             #qty
           >
-            <h3>Qty</h3>
+            <h3>Qté</h3>
           </div>
         </div>
         <div
@@ -162,7 +163,7 @@
             (click)="onModeClick(disc)"
             #disc
           >
-            <h3>Disc</h3>
+            <h3>Réduc</h3>
           </div>
         </div>
         <div
@@ -205,7 +206,7 @@
             (click)="onModeClick(price)"
             #price
           >
-            <h3>Price</h3>
+            <h3>Prix</h3>
           </div>
         </div>
         <div
@@ -245,7 +246,7 @@
             fxFlex="25"
             (click)="onRemoveClick()"
           >
-            <h3>Rmv</h3>
+            <fa-icon [icon]="faBackspace" size="lg"></fa-icon>
           </div>
         </div>
       </div>
