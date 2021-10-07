@@ -6,13 +6,15 @@ import {
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
+import { Product } from 'src/app/services/product.model';
 
-export interface Order {
+/*export interface Order {
   id: number;
   productName: string;
   quantity: number;
   pricePerUnit: number;
-}
+  total: number;
+}*/
 
 @Component({
   selector: 'app-pos',
@@ -21,11 +23,16 @@ export interface Order {
   encapsulation: ViewEncapsulation.None,
 })
 export class PosComponent implements OnInit {
-  orders: Order[] = [];
-  products: Order[];
+  p1: Product = new Product(123, 'Doliprane', 1, 19.0);
+  p2: Product = new Product(124, 'Rhumix', 1, 29.0);
+  p3: Product = new Product(125, 'Glucofage', 1, 32.0);
+  p4: Product = new Product(126, 'Aspro', 1, 10.0);
+  p5: Product = new Product(127, 'Inopril', 1, 105.0);
+  orders: Product[] = [];
+  products: Product[];
 
   htmlSelectedOrder: any;
-  selectedOrder: Order;
+  selectedOrder: Product;
 
   totalPrice: number = 0;
   ordersExist: boolean = false;
@@ -40,33 +47,7 @@ export class PosComponent implements OnInit {
   constructor(private rd: Renderer2) {}
 
   ngOnInit(): void {
-    this.products = [
-      {
-        id: 123,
-        productName: 'Doliprane',
-        quantity: 1,
-        pricePerUnit: 19.0,
-      },
-      {
-        id: 121,
-        productName: 'Rhumix',
-        quantity: 2,
-        pricePerUnit: 25.0,
-      },
-      { id: 173, productName: 'Glucofage', quantity: 1, pricePerUnit: 21.0 },
-      {
-        id: 342,
-        productName: 'Inopril',
-        quantity: 1,
-        pricePerUnit: 104.0,
-      },
-      {
-        id: 213,
-        productName: 'Aspro',
-        quantity: 1,
-        pricePerUnit: 5.0,
-      },
-    ];
+    this.products = [this.p1, this.p2, this.p3, this.p4, this.p5];
   }
 
   onModeClick(mode) {
@@ -125,13 +106,20 @@ export class PosComponent implements OnInit {
         this.orders[index]['quantity'] = parseInt(
           '' + this.orders[index]['quantity'] + number
         );
-        this.calculateTotalPrice();
+        this.orders[index]['total'] =
+          this.orders[index]['quantity'] * this.orders[index]['pricePerUnit'];
       } else if (this.discountMode) {
-        this.calculateTotalPrice();
       } else {
-        this.calculateTotalPrice();
+        let number = event.srcElement.innerText;
+        let index = this.orders.indexOf(this.selectedOrder);
+        this.orders[index]['pricePerUnit'] = parseInt(
+          '' + this.orders[index]['pricePerUnit'] + number
+        );
+        this.orders[index]['total'] =
+          this.orders[index]['quantity'] * this.orders[index]['pricePerUnit'];
       }
     }
+    this.calculateTotalPrice();
   }
 
   calculateTotalPrice() {
@@ -147,6 +135,9 @@ export class PosComponent implements OnInit {
     if (this.orders.includes(this.products[index])) {
       let orderIndex = this.orders.indexOf(this.products[index]);
       this.orders[orderIndex]['quantity']++;
+      this.orders[orderIndex]['total'] =
+        this.orders[orderIndex]['quantity'] *
+        this.orders[orderIndex]['pricePerUnit'];
     } else {
       this.orders.push(this.products[index]);
     }

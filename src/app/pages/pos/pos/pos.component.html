@@ -20,6 +20,10 @@
       #ordersContainer
       [scrollTop]="ordersContainer.scrollHeight"
     >
+      <div fxLayout="column" fxLayoutAlign="center center" *ngIf="!ordersExist">
+        <p style="color: #888">Cette commande est vide</p>
+      </div>
+
       <div
         fxLayout="row"
         fxLayoutAlign="space-between start"
@@ -36,11 +40,14 @@
             à {{ order.pricePerUnit | currency: "MAD ":"code":"1.2-2" }} / Unité
           </p>
         </div>
-        <h3>
+        <!-- <h3>
           {{
             order.quantity * order.pricePerUnit
               | currency: "MAD ":"code":"1.2-2"
           }}
+        </h3> -->
+        <h3>
+          {{ order.total | currency: "MAD ":"code":"1.2-2" }}
         </h3>
       </div>
       <div
