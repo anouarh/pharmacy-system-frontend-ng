@@ -4,8 +4,9 @@ import {
   OnInit,
   Renderer2,
   ViewChild,
-  ViewEncapsulation,
+  ViewEncapsulation
 } from '@angular/core';
+import { faChevronCircleRight } from '@fortawesome/free-solid-svg-icons';
 import { Product } from 'src/app/services/product.model';
 
 /*export interface Order {
@@ -41,6 +42,8 @@ export class PosComponent implements OnInit {
   quantityMode: boolean = true;
   discountMode: boolean = false;
   priceMode: boolean = false;
+
+  faChevronCircleRight = faChevronCircleRight;
 
   @ViewChild('qty', { static: false }) qty: ElementRef;
 
@@ -83,11 +86,12 @@ export class PosComponent implements OnInit {
   }
 
   onRemoveClick() {
-    console.log(this.selectedOrder);
-    let index = this.orders.indexOf(this.selectedOrder);
-    this.orders.splice(index, 1);
-    this.calculateTotalPrice();
-    this.checkIfOrdersExist();
+    if (this.selectedOrder != null) {
+      let index = this.orders.indexOf(this.selectedOrder);
+      this.orders.splice(index, 1);
+      this.calculateTotalPrice();
+      this.checkIfOrdersExist();
+    }
   }
 
   checkIfOrdersExist() {

@@ -40,12 +40,7 @@
             à {{ order.pricePerUnit | currency: "MAD ":"code":"1.2-2" }} / Unité
           </p>
         </div>
-        <!-- <h3>
-          {{
-            order.quantity * order.pricePerUnit
-              | currency: "MAD ":"code":"1.2-2"
-          }}
-        </h3> -->
+
         <h3>
           {{ order.total | currency: "MAD ":"code":"1.2-2" }}
         </h3>
@@ -62,28 +57,33 @@
       </div>
     </div>
     <div
-      class="w100"
+      class="black-border w100"
       fxLayout="row"
       fxLayoutAlign="center center"
       fxLayoutGap="0px"
       fxFlex
     >
       <div
-        class="black-border"
+        class="grey-border payment-button"
         fxLayout="column"
         fxLayoutAlign="center center"
         fxFlex="45"
-        style="height: 90%"
+        style="height: 100%"
       >
-        Payment
+        <fa-icon [icon]="faChevronCircleRight" size="3x"></fa-icon>
+        <h3>Payment</h3>
       </div>
       <div
-        style="height: 90%"
+        style="height: 100%"
         fxLayout="column"
-        fxLayoutAlign="center center"
-        fxFlex="45"
+        fxLayoutAlign="space-evenly start"
+        fxFlex
       >
-        <div class="w100" fxLayout="row" fxLayoutAlign="start start">
+        <div
+          class="calculator-row w100"
+          fxLayout="row"
+          fxLayoutAlign="start start"
+        >
           <div
             class="calculator-button grey-border"
             fxLayout="column"
@@ -122,7 +122,11 @@
             <h3>Qty</h3>
           </div>
         </div>
-        <div class="w100" fxLayout="row" fxLayoutAlign="start start">
+        <div
+          class="calculator-row w100"
+          fxLayout="row"
+          fxLayoutAlign="start start"
+        >
           <div
             class="calculator-button grey-border"
             fxLayout="column"
@@ -161,7 +165,11 @@
             <h3>Disc</h3>
           </div>
         </div>
-        <div class="w100" fxLayout="row" fxLayoutAlign="start start">
+        <div
+          class="calculator-row w100"
+          fxLayout="row"
+          fxLayoutAlign="start start"
+        >
           <div
             class="calculator-button grey-border"
             fxLayout="column"
@@ -200,7 +208,11 @@
             <h3>Price</h3>
           </div>
         </div>
-        <div class="w100" fxLayout="row" fxLayoutAlign="start start">
+        <div
+          class="calculator-row w100"
+          fxLayout="row"
+          fxLayoutAlign="start start"
+        >
           <div
             class="calculator-button grey-border"
             fxLayout="column"

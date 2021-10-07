@@ -1,5 +1,6 @@
 .black-border {
   border: 1px solid black;
+  border-radius: 3px;
 }
 
 .grey-border {
@@ -67,17 +68,31 @@
   width: 95%;
 }
 
+.calculator-row {
+  height: 25%;
+}
+
 .calculator-button {
-  height: 70px;
+  height: 100%;
   cursor: pointer;
 }
 
 .calculator-button:hover {
   background-color: #e2e2e2;
   transition: all 150ms linear;
+  color: black;
 }
 
 .starting-mode {
   background-color: #6ec89b;
   color: white;
+}
+
+.payment-button {
+  cursor: pointer;
+}
+
+.payment-button:hover {
+  background-color: #e2e2e2;
+  transition: all 150ms linear;
 }
