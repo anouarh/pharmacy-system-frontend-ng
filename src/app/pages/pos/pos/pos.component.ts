@@ -85,18 +85,36 @@ export class PosComponent implements OnInit {
     }
     if (mode.innerText === 'Qty') {
       this.quantityMode = true;
+      this.discountMode = true;
+      this.priceMode = true;
       console.log(mode.innerText);
     } else if (mode.innerText === 'Disc') {
       this.discountMode = true;
+      this.priceMode = false;
+      this.quantityMode = false;
       console.log(mode.innerText);
     } else {
       this.priceMode = true;
+      this.quantityMode = false;
+      this.discountMode = false;
       console.log(mode.innerText);
     }
   }
 
   onRemoveClick() {
-    console.log('You clicked on remove');
+    console.log(this.selectedOrder);
+    let index = this.orders.indexOf(this.selectedOrder);
+    this.orders.splice(index, 1);
+    this.calculateTotalPrice();
+    this.checkIfOrdersExist();
+  }
+
+  checkIfOrdersExist() {
+    if (this.orders != null && this.orders.length > 0) {
+      this.ordersExist = true;
+    } else {
+      this.ordersExist = false;
+    }
   }
 
   onNumberClick(event) {
@@ -107,14 +125,17 @@ export class PosComponent implements OnInit {
         this.orders[index]['quantity'] = parseInt(
           '' + this.orders[index]['quantity'] + number
         );
+        this.calculateTotalPrice();
       } else if (this.discountMode) {
+        this.calculateTotalPrice();
       } else {
+        this.calculateTotalPrice();
       }
-      this.calculateTotalPrice();
     }
   }
 
   calculateTotalPrice() {
+    this.totalPrice = 0;
     if (this.orders != null && this.orders.length > 0) {
       this.orders.forEach((order) => {
         this.totalPrice += order.pricePerUnit * order.quantity;
