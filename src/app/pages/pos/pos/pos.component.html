@@ -25,8 +25,8 @@
         fxLayoutAlign="space-between start"
         fxLayoutGap="2px"
         class="item fill-div"
-        *ngFor="let order of orders"
-        (click)="onItemSelect(thisItem)"
+        *ngFor="let order of orders; index as i"
+        (click)="onItemSelect(thisItem, i)"
         #thisItem
       >
         <div>
@@ -78,15 +78,16 @@
       >
         <div class="w100" fxLayout="row" fxLayoutAlign="start start">
           <div
-            class="calculator-button black-border"
+            class="calculator-button grey-border"
             fxLayout="column"
             fxLayoutAlign="center center"
             fxFlex="25"
+            (click)="onNumberClick($event)"
           >
             <h3>1</h3>
           </div>
           <div
-            class="calculator-button black-border"
+            class="calculator-button grey-border"
             fxLayout="column"
             fxLayoutAlign="center center"
             fxFlex="25"
@@ -94,7 +95,7 @@
             <h3>2</h3>
           </div>
           <div
-            class="calculator-button black-border"
+            class="calculator-button grey-border"
             fxLayout="column"
             fxLayoutAlign="center center"
             fxFlex="25"
@@ -102,17 +103,19 @@
             <h3>3</h3>
           </div>
           <div
-            class="calculator-button black-border"
+            class="calculator-button grey-border"
             fxLayout="column"
             fxLayoutAlign="center center"
             fxFlex="25"
+            (click)="onModeClick(qty)"
+            #qty
           >
             <h3>Qty</h3>
           </div>
         </div>
         <div class="w100" fxLayout="row" fxLayoutAlign="start start">
           <div
-            class="calculator-button black-border"
+            class="calculator-button grey-border"
             fxLayout="column"
             fxLayoutAlign="center center"
             fxFlex="25"
@@ -120,7 +123,7 @@
             <h3>4</h3>
           </div>
           <div
-            class="calculator-button black-border"
+            class="calculator-button grey-border"
             fxLayout="column"
             fxLayoutAlign="center center"
             fxFlex="25"
@@ -128,7 +131,7 @@
             <h3>5</h3>
           </div>
           <div
-            class="calculator-button black-border"
+            class="calculator-button grey-border"
             fxLayout="column"
             fxLayoutAlign="center center"
             fxFlex="25"
@@ -136,17 +139,19 @@
             <h3>6</h3>
           </div>
           <div
-            class="calculator-button black-border"
+            class="calculator-button grey-border"
             fxLayout="column"
             fxLayoutAlign="center center"
             fxFlex="25"
+            (click)="onModeClick(disc)"
+            #disc
           >
             <h3>Disc</h3>
           </div>
         </div>
         <div class="w100" fxLayout="row" fxLayoutAlign="start start">
           <div
-            class="calculator-button black-border"
+            class="calculator-button grey-border"
             fxLayout="column"
             fxLayoutAlign="center center"
             fxFlex="25"
@@ -154,7 +159,7 @@
             <h3>7</h3>
           </div>
           <div
-            class="calculator-button black-border"
+            class="calculator-button grey-border"
             fxLayout="column"
             fxLayoutAlign="center center"
             fxFlex="25"
@@ -162,7 +167,7 @@
             <h3>8</h3>
           </div>
           <div
-            class="calculator-button black-border"
+            class="calculator-button grey-border"
             fxLayout="column"
             fxLayoutAlign="center center"
             fxFlex="25"
@@ -170,17 +175,19 @@
             <h3>9</h3>
           </div>
           <div
-            class="calculator-button black-border"
+            class="calculator-button grey-border"
             fxLayout="column"
             fxLayoutAlign="center center"
             fxFlex="25"
+            (click)="onModeClick(price)"
+            #price
           >
             <h3>Price</h3>
           </div>
         </div>
         <div class="w100" fxLayout="row" fxLayoutAlign="start start">
           <div
-            class="calculator-button black-border"
+            class="calculator-button grey-border"
             fxLayout="column"
             fxLayoutAlign="center center"
             fxFlex="25"
@@ -188,7 +195,7 @@
             <h3>+/-</h3>
           </div>
           <div
-            class="calculator-button black-border"
+            class="calculator-button grey-border"
             fxLayout="column"
             fxLayoutAlign="center center"
             fxFlex="25"
@@ -196,7 +203,7 @@
             <h3>0</h3>
           </div>
           <div
-            class="calculator-button black-border"
+            class="calculator-button grey-border"
             fxLayout="column"
             fxLayoutAlign="center center"
             fxFlex="25"
@@ -204,7 +211,7 @@
             <h3>.</h3>
           </div>
           <div
-            class="calculator-button black-border"
+            class="calculator-button grey-border"
             fxLayout="column"
             fxLayoutAlign="center center"
             fxFlex="25"

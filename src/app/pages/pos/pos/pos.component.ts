@@ -1,4 +1,5 @@
 import { Component, OnInit, Renderer2, ViewEncapsulation } from '@angular/core';
+import { appendFileSync } from 'fs';
 
 export interface Order {
   id: number;
@@ -15,10 +16,18 @@ export interface Order {
 })
 export class PosComponent implements OnInit {
   orders: Order[] = [];
-  products: Order[];input
-  selectedOrder: any;
+  products: Order[];
+
+  htmlSelectedOrder: any;
+  selectedOrder: Order;
+
   totalPrice: number = 0;
   ordersExist: boolean = false;
+
+  htmlSelectedMode: any = null;
+  quantityMode: boolean = false;
+  discountMode: boolean = false;
+  priceMode: boolean = false;
 
   constructor(private rd: Renderer2) {}
 
@@ -52,6 +61,34 @@ export class PosComponent implements OnInit {
     ];
   }
 
+  onModeClick(mode) {
+    if (this.htmlSelectedMode != null) {
+      this.rd.setStyle(this.htmlSelectedMode, 'background-color', '');
+      this.rd.setStyle(this.htmlSelectedMode, 'color', 'black');
+      this.htmlSelectedMode = mode;
+      this.rd.setStyle(mode, 'background-color', '#6EC89B');
+      this.rd.setStyle(mode, 'color', '#fff');
+    } else {
+      this.htmlSelectedMode = mode;
+      this.rd.setStyle(mode, 'background-color', '#6EC89B');
+      this.rd.setStyle(mode, 'color', '#fff');
+    }
+    if (mode.innerText === 'Qty') {
+      this.quantityMode = true;
+      console.log(mode.innerText);
+    } else if (mode.innerText === 'Disc') {
+      this.discountMode = true;
+      console.log(mode.innerText);
+    } else {
+      this.priceMode = true;
+      console.log(mode.innerText);
+    }
+  }
+
+  onNumberClick(event) {
+    let number = event.srcElement.innerText;
+  }
+
   calculateTotalPrice() {
     if (this.orders != null && this.orders.length > 0) {
       this.orders.forEach((order) => {
@@ -72,17 +109,19 @@ export class PosComponent implements OnInit {
     this.calculateTotalPrice();
   }
 
-  onItemSelect(thisItem) {
-    if (this.selectedOrder != null) {
-      this.rd.setStyle(this.selectedOrder, 'background-color', '');
-      this.selectedOrder = thisItem;
+  onItemSelect(thisItem, i) {
+    if (this.htmlSelectedOrder != null) {
+      this.selectedOrder = this.orders[i];
+      this.rd.setStyle(this.htmlSelectedOrder, 'background-color', '');
+      this.htmlSelectedOrder = thisItem;
       this.rd.setStyle(
         thisItem,
         'background-color',
         'rgba(140, 143, 183, 0.2)'
       );
     } else {
-      this.selectedOrder = thisItem;
+      this.selectedOrder = this.orders[i];
+      this.htmlSelectedOrder = thisItem;
       this.rd.setStyle(
         thisItem,
         'background-color',
