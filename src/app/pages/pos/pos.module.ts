@@ -8,9 +8,11 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatListModule } from '@angular/material/list';
 import { MatCardModule } from '@angular/material/card';
+import { PaymentComponent } from './payment/payment.component';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 @NgModule({
-  declarations: [PosComponent],
+  declarations: [PosComponent, PaymentComponent],
   imports: [
     CommonModule,
     PosRoutingModule,
@@ -20,6 +22,7 @@ import { MatCardModule } from '@angular/material/card';
     MatButtonModule,
     MatListModule,
     MatCardModule,
+    MatButtonToggleModule,
   ],
 })
 export class PosModule {}
