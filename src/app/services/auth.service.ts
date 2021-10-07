@@ -3,7 +3,11 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 import { User } from '../services/user.model';
+
+let apiUrl = environment.api;
+let authUrl = environment.authUrl;
 
 export interface AuthResponseData {
   access_token: string;
@@ -28,11 +32,7 @@ export class AuthService {
       'Content-type': 'application/x-www-form-urlencoded',
     };
     return this.http
-      .post<AuthResponseData>(
-        'http://localhost:8080/' + 'oauth/token',
-        loginPayload,
-        { headers }
-      )
+      .post<AuthResponseData>(authUrl, loginPayload, { headers })
       .pipe(
         catchError(null),
         tap((res) => {
