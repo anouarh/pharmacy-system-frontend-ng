@@ -4,8 +4,10 @@
 
 export const environment = {
   production: false,
-  api: 'http://localhost:8080/',
-  authUrl: 'localhost:8080/oauth/token',
+  //api: 'http://localhost:8080/',
+  //authUrl: 'localhost:8080/oauth/token',
+  api: 'https://blooming-ravine-65676.herokuapp.com/',
+  authUrl: 'https://blooming-ravine-65676.herokuapp.com/oauth/token',
 };
 
 /*
