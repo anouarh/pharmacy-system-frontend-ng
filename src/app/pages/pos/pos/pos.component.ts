@@ -1,5 +1,11 @@
-import { Component, OnInit, Renderer2, ViewEncapsulation } from '@angular/core';
-import { appendFileSync } from 'fs';
+import {
+  Component,
+  ElementRef,
+  OnInit,
+  Renderer2,
+  ViewChild,
+  ViewEncapsulation,
+} from '@angular/core';
 
 export interface Order {
   id: number;
@@ -25,9 +31,11 @@ export class PosComponent implements OnInit {
   ordersExist: boolean = false;
 
   htmlSelectedMode: any = null;
-  quantityMode: boolean = false;
+  quantityMode: boolean = true;
   discountMode: boolean = false;
   priceMode: boolean = false;
+
+  @ViewChild('qty', { static: false }) qty: ElementRef;
 
   constructor(private rd: Renderer2) {}
 
@@ -63,12 +71,14 @@ export class PosComponent implements OnInit {
 
   onModeClick(mode) {
     if (this.htmlSelectedMode != null) {
-      this.rd.setStyle(this.htmlSelectedMode, 'background-color', '');
+      this.rd.setStyle(this.htmlSelectedMode, 'background-color', 'inherit');
       this.rd.setStyle(this.htmlSelectedMode, 'color', 'black');
       this.htmlSelectedMode = mode;
       this.rd.setStyle(mode, 'background-color', '#6EC89B');
       this.rd.setStyle(mode, 'color', '#fff');
     } else {
+      this.rd.setStyle(this.qty.nativeElement, 'background-color', 'inherit');
+      this.rd.setStyle(this.qty.nativeElement, 'color', 'black');
       this.htmlSelectedMode = mode;
       this.rd.setStyle(mode, 'background-color', '#6EC89B');
       this.rd.setStyle(mode, 'color', '#fff');
@@ -85,8 +95,23 @@ export class PosComponent implements OnInit {
     }
   }
 
+  onRemoveClick() {
+    console.log('You clicked on remove');
+  }
+
   onNumberClick(event) {
-    let number = event.srcElement.innerText;
+    if (this.selectedOrder != null) {
+      if (this.quantityMode) {
+        let number = event.srcElement.innerText;
+        let index = this.orders.indexOf(this.selectedOrder);
+        this.orders[index]['quantity'] = parseInt(
+          '' + this.orders[index]['quantity'] + number
+        );
+      } else if (this.discountMode) {
+      } else {
+      }
+      this.calculateTotalPrice();
+    }
   }
 
   calculateTotalPrice() {

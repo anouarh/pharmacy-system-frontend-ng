@@ -76,3 +76,8 @@
   background-color: #e2e2e2;
   transition: all 150ms linear;
 }
+
+.starting-mode {
+  background-color: #6ec89b;
+  color: white;
+}
