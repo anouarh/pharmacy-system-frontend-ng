@@ -44,7 +44,16 @@ export class PosComponent implements OnInit {
 
   @ViewChild('qty', { static: false }) qty: ElementRef;
 
-  constructor(private rd: Renderer2, private router: Router) {}
+  constructor(private rd: Renderer2, private router: Router) {
+    if (this.router.getCurrentNavigation().extras.state) {
+      let res = JSON.parse(
+        this.router.getCurrentNavigation().extras.state.orders
+      );
+      this.orders = JSON.parse(res);
+      this.calculateTotalPrice();
+      this.checkIfOrdersExist();
+    }
+  }
 
   ngOnInit(): void {
     this.products = [this.p1, this.p2, this.p3, this.p4, this.p5];
@@ -52,7 +61,12 @@ export class PosComponent implements OnInit {
 
   onPaymentClick() {
     console.log('Routing to payment');
-    this.router.navigate(['pos/payment']);
+    this.router.navigate(['pos/payment'], {
+      state: {
+        orders: JSON.stringify(this.orders),
+        total: JSON.stringify(this.totalPrice),
+      },
+    });
   }
 
   onModeClick(mode) {
