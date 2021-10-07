@@ -2,6 +2,10 @@
   border: 1px solid black;
 }
 
+.grey-border {
+  border: 1px solid #bfbfbf;
+}
+
 .vh90 {
   height: 90vh;
 }
@@ -65,4 +69,15 @@
 
 .calculator-button {
   height: 70px;
+  cursor: pointer;
+}
+
+.calculator-button:hover {
+  background-color: #e2e2e2;
+  transition: all 150ms linear;
+}
+
+.starting-mode {
+  background-color: #6ec89b;
+  color: white;
 }
