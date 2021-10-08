@@ -1,34 +1,156 @@
 <div
   class="payment-container"
-  fxLayout="column"
+  fxLayout="row wrap"
   fxLayoutAlign="center center"
-  fxLayoutGap="10px"
 >
-  <div
-    style="width: 100%"
-    fxLayout="row"
-    fxLayoutAlign="space-evenly center"
-    fxLayoutGap="10px"
-  >
+  <div fxFlex="30">
     <button mat-raised-button (click)="returnToOrder()">
       <fa-icon [icon]="faAngleDoubleLeft" size="lg"></fa-icon>
       <h2>Retour</h2>
     </button>
+  </div>
+  <div fxFlex="40">
     <h1>Paiement</h1>
-    <button mat-raised-button color="accent">
+  </div>
+  <div fxFlex="30">
+    <button mat-raised-button color="accent" disabled="orderIsAllSet">
       <h2>Valider</h2>
       <fa-icon [icon]="faAngleDoubleRight" size="lg"></fa-icon>
     </button>
   </div>
-  <div style="width: 100%" fxLayout="row" fxLayoutAlign="space-evenly center">
-    <mat-button-toggle-group vertical name="paymentMethod">
+  <div
+    fxLayout="column"
+    fxLayoutAlign="center center"
+    fxFlex="30"
+    (keypress)="keypress($event)"
+  >
+    {{
+      paymentMethod == "especes"
+        ? "Espèces"
+        : paymentMethod == "carte"
+        ? "Carte
+    Bancaire"
+        : ""
+    }}
+    <mat-form-field appearance="outline">
+      <input
+        matInput
+        #cashInput
+        type="text"
+        [(ngModel)]="cash"
+        (keypress)="keypress($event)"
+      />
+    </mat-form-field>
+
+    <mat-button-toggle-group
+      [(ngModel)]="paymentMethod"
+      vertical
+      name="paymentMethod"
+    >
       <mat-button-toggle value="especes">Espèces</mat-button-toggle>
       <mat-button-toggle value="carte">Carte Bancaire</mat-button-toggle>
     </mat-button-toggle-group>
+  </div>
+  <div fxFlex="70">
+    <div class="total-price">
+      {{ total | currency: "MAD ":"code":"1.2-2" }}
+    </div>
     <div>
-      <h1 style="color: green">
-        {{ total | currency: "MAD ":"code":"1.2-2" }}
-      </h1>
+      {{ paymentMethod ? "" : "Choisissez un moyen de paiement." }}
+    </div>
+  </div>
+  <div style="height: 100px" fxFlex="100"></div>
+  <div
+    class="payment-numpad"
+    fxLayout="row wrap"
+    fxLayoutAlign="center center"
+    fxFlex="30"
+    fxFlexOffset="20"
+    style="text-align: center"
+  >
+    <div
+      class="kb-btn brd-b brd-r"
+      fxFlex="25"
+      (click)="onNumpadButtonClick($event)"
+    >
+      1
+    </div>
+    <div
+      class="kb-btn brd-b brd-r"
+      fxFlex="25"
+      (click)="onNumpadButtonClick($event)"
+    >
+      2
+    </div>
+    <div
+      class="kb-btn brd-b brd-r"
+      fxFlex="25"
+      (click)="onNumpadButtonClick($event)"
+    >
+      3
+    </div>
+    <div class="kb-btn brd-b" fxFlex="25" (click)="onNumpadButtonClick($event)">
+      +10
+    </div>
+    <div
+      class="kb-btn brd-b brd-r"
+      fxFlex="25"
+      (click)="onNumpadButtonClick($event)"
+    >
+      4
+    </div>
+    <div
+      class="kb-btn brd-b brd-r"
+      fxFlex="25"
+      (click)="onNumpadButtonClick($event)"
+    >
+      5
+    </div>
+    <div
+      class="kb-btn brd-b brd-r"
+      fxFlex="25"
+      (click)="onNumpadButtonClick($event)"
+    >
+      6
+    </div>
+    <div class="kb-btn brd-b" fxFlex="25" (click)="onNumpadButtonClick($event)">
+      +20
+    </div>
+    <div
+      class="kb-btn brd-b brd-r"
+      fxFlex="25"
+      (click)="onNumpadButtonClick($event)"
+    >
+      7
+    </div>
+    <div
+      class="kb-btn brd-b brd-r"
+      fxFlex="25"
+      (click)="onNumpadButtonClick($event)"
+    >
+      8
+    </div>
+    <div
+      class="kb-btn brd-b brd-r"
+      fxFlex="25"
+      (click)="onNumpadButtonClick($event)"
+    >
+      9
+    </div>
+    <div class="kb-btn brd-b" fxFlex="25" (click)="onNumpadButtonClick($event)">
+      +50
+    </div>
+    <div class="kb-btn brd-r" fxFlex="25" (click)="onNumpadButtonClick($event)">
+      0
+    </div>
+    <div class="kb-btn brd-r" fxFlex="25" (click)="onNumpadButtonClick($event)">
+      +100
+    </div>
+    <div class="kb-btn brd-r" fxFlex="25" (click)="onNumpadButtonClick($event)">
+      +200
+    </div>
+    <div class="kb-btn" fxFlex="25" (click)="onNumpadButtonClick($event)">
+      <fa-icon [icon]="faBackspace" size="s"></fa-icon>
     </div>
   </div>
 </div>

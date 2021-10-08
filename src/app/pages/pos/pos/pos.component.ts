@@ -11,6 +11,8 @@ import {
   faBackspace,
   faChevronCircleRight,
 } from '@fortawesome/free-solid-svg-icons';
+import { Drug } from 'src/app/services/drug.model';
+import { DrugsService } from 'src/app/services/drugs.service';
 import { Product } from 'src/app/services/product.model';
 
 @Component({
@@ -25,8 +27,9 @@ export class PosComponent implements OnInit {
   p3: Product = new Product(125, 'Glucofage', 1, 32.0);
   p4: Product = new Product(126, 'Aspro', 1, 10.0);
   p5: Product = new Product(127, 'Inopril', 1, 105.0);
-  orders: Product[] = [];
+  orders: any = [];
   products: Product[];
+  drugs: any;
 
   htmlSelectedOrder: any;
   selectedOrder: Product;
@@ -39,12 +42,19 @@ export class PosComponent implements OnInit {
   discountMode: boolean = false;
   priceMode: boolean = false;
 
+  currentUser: any;
+  isLoadingResults: boolean = false;
+
   faChevronCircleRight = faChevronCircleRight;
   faBackspace = faBackspace;
 
   @ViewChild('qty', { static: false }) qty: ElementRef;
 
-  constructor(private rd: Renderer2, private router: Router) {
+  constructor(
+    private rd: Renderer2,
+    private router: Router,
+    private drugsService: DrugsService
+  ) {
     if (this.router.getCurrentNavigation().extras.state) {
       let res = JSON.parse(
         this.router.getCurrentNavigation().extras.state.orders
@@ -56,7 +66,28 @@ export class PosComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.products = [this.p1, this.p2, this.p3, this.p4, this.p5];
+    this.getUserData();
+    this.getAllDrugs();
+  }
+
+  getUserData() {
+    const userData: {
+      username: string;
+      _token: string;
+      _tokenExpirationDate: string;
+    } = JSON.parse(localStorage.getItem('userData'));
+    this.currentUser = userData;
+  }
+
+  getAllDrugs() {
+    this.isLoadingResults = true;
+    this.drugsService
+      .getAllByUsername(this.currentUser.username)
+      .subscribe((result) => {
+        this.drugs = result;
+        this.isLoadingResults = false;
+        localStorage.getItem('userData');
+      });
   }
 
   onPaymentClick() {
@@ -66,6 +97,7 @@ export class PosComponent implements OnInit {
         orders: JSON.stringify(this.orders),
         total: JSON.stringify(this.totalPrice),
       },
+      skipLocationChange: true,
     });
   }
 
@@ -87,17 +119,14 @@ export class PosComponent implements OnInit {
       this.quantityMode = true;
       this.discountMode = true;
       this.priceMode = true;
-      console.log(mode.innerText);
     } else if (mode.innerText === 'Réduc') {
       this.discountMode = true;
       this.priceMode = false;
       this.quantityMode = false;
-      console.log(mode.innerText);
     } else {
       this.priceMode = true;
       this.quantityMode = false;
       this.discountMode = false;
-      console.log(mode.innerText);
     }
   }
 
@@ -127,16 +156,16 @@ export class PosComponent implements OnInit {
           '' + this.orders[index]['quantity'] + number
         );
         this.orders[index]['total'] =
-          this.orders[index]['quantity'] * this.orders[index]['pricePerUnit'];
+          this.orders[index]['quantity'] * this.orders[index]['ppv'];
       } else if (this.discountMode) {
       } else {
         let number = event.srcElement.innerText;
         let index = this.orders.indexOf(this.selectedOrder);
-        this.orders[index]['pricePerUnit'] = parseInt(
-          '' + this.orders[index]['pricePerUnit'] + number
+        this.orders[index]['ppv'] = parseInt(
+          '' + this.orders[index]['ppv'] + number
         );
         this.orders[index]['total'] =
-          this.orders[index]['quantity'] * this.orders[index]['pricePerUnit'];
+          this.orders[index]['quantity'] * this.orders[index]['ppv'];
       }
     }
     this.calculateTotalPrice();
@@ -146,20 +175,23 @@ export class PosComponent implements OnInit {
     this.totalPrice = 0;
     if (this.orders != null && this.orders.length > 0) {
       this.orders.forEach((order) => {
-        this.totalPrice += order.pricePerUnit * order.quantity;
+        this.totalPrice += order.ppv * order.quantity;
       });
     }
   }
 
   onProductSelect(index) {
-    if (this.orders.includes(this.products[index])) {
-      let orderIndex = this.orders.indexOf(this.products[index]);
+    if (this.orders.includes(this.drugs[index])) {
+      let orderIndex = this.orders.indexOf(this.drugs[index]);
       this.orders[orderIndex]['quantity']++;
       this.orders[orderIndex]['total'] =
-        this.orders[orderIndex]['quantity'] *
-        this.orders[orderIndex]['pricePerUnit'];
+        this.orders[orderIndex]['quantity'] * this.orders[orderIndex]['ppv'];
     } else {
-      this.orders.push(this.products[index]);
+      this.drugs[index]['quantity'] = 1;
+      this.drugs[index]['total'] =
+        this.drugs[index]['quantity'] * this.drugs[index]['ppv'];
+      //let newOrder = Object.assign({}, this.drugs[index]);
+      this.orders.push(this.drugs[index]);
     }
 
     this.ordersExist = true;

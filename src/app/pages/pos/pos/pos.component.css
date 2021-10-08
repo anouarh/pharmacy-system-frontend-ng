@@ -62,6 +62,9 @@
   height: 150px;
   width: 150px;
   cursor: pointer;
+  min-width: 200px;
+  min-height: 200px;
+  text-align: center;
 }
 
 .product-list {

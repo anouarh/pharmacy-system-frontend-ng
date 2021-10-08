@@ -2,17 +2,16 @@
   class="pos-container vh90"
   fxLayout="row"
   fxLayoutAlign="space-around center"
-  fxLayoutGap="5px"
 >
   <div
     class="h100"
     fxLayout="column"
     fxLayoutAlign="center center"
-    fxLayoutGap="5px"
     fxFlex="35"
   >
     <div
-      class="orders black-border w100"
+      style="border-bottom: 3px solid #6ec89b"
+      class="orders w100"
       fxLayout="column"
       fxLayoutAlign="start center"
       fxLayoutGap="10px"
@@ -34,10 +33,14 @@
         #thisItem
       >
         <div>
-          <h3>{{ order.productName }}</h3>
+          <h3>
+            {{
+              (order.nom | slice: 0:35) + (order.nom.length > 35 ? "..." : "")
+            }}
+          </h3>
           <p style="color: #888">
             <b>{{ order.quantity | currency: "MAD ":"code":"1.2-2" }}</b> Unités
-            à {{ order.pricePerUnit | currency: "MAD ":"code":"1.2-2" }} / Unité
+            à {{ order.ppv | currency: "MAD ":"code":"1.2-2" }} / Unité
           </p>
         </div>
 
@@ -57,7 +60,7 @@
       </div>
     </div>
     <div
-      class="black-border w100"
+      class="w100"
       fxLayout="row"
       fxLayoutAlign="center center"
       fxLayoutGap="0px"
@@ -253,7 +256,8 @@
     </div>
   </div>
   <div
-    class="black-border h100"
+    style="border-left: 3px solid #787878"
+    class="h100"
     fxLayout="column"
     fxLayoutAlign="start center"
     fxLayoutGap="15px"
@@ -280,12 +284,16 @@
           fxLayout="column"
           fxLayoutAlign="center center"
           fxLayoutGap="10px"
-          *ngFor="let product of products; index as i"
+          *ngFor="let drug of drugs; index as i"
           (click)="onProductSelect(i)"
         >
-          {{ product.id }}
-          <h2>{{ product.productName }}</h2>
-          {{ product.pricePerUnit | currency: "MAD ":"code":"1.2-2" }}
+          <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+
+          {{ drug.id }}
+          <h2>
+            {{ (drug.nom | slice: 0:35) + (drug.nom.length > 35 ? "..." : "") }}
+          </h2>
+          {{ drug.ppv | currency: "MAD ":"code":"1.2-2" }}
         </div>
       </div>
     </div>

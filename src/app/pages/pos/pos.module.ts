@@ -10,6 +10,8 @@ import { MatListModule } from '@angular/material/list';
 import { MatCardModule } from '@angular/material/card';
 import { PaymentComponent } from './payment/payment.component';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [PosComponent, PaymentComponent],
@@ -23,6 +25,8 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
     MatListModule,
     MatCardModule,
     MatButtonToggleModule,
+    MatProgressSpinnerModule,
+    FormsModule,
   ],
 })
 export class PosModule {}
