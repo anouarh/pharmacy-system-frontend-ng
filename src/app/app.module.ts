@@ -18,6 +18,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './pages/login/login.component';
 import { AuthInterceptorService } from './services/auth-interceptor.service';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [AppComponent, LoginComponent],
@@ -38,6 +39,7 @@ import { AuthInterceptorService } from './services/auth-interceptor.service';
     MatInputModule,
     FormsModule,
     MatDialogModule,
+    MatProgressSpinnerModule,
   ],
   providers: [
     {

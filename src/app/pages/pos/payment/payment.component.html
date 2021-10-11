@@ -24,21 +24,15 @@
     fxFlex="30"
     (keypress)="keypress($event)"
   >
-    {{
-      paymentMethod == "especes"
-        ? "Espèces"
-        : paymentMethod == "carte"
-        ? "Carte
-    Bancaire"
-        : ""
-    }}
-    <mat-form-field appearance="outline">
+    <mat-form-field appearance="outline" *ngIf="paymentMethod == 'especes'">
       <input
+        style="font-size: 36px; font-weight: bold"
         matInput
         #cashInput
         type="text"
         [(ngModel)]="cash"
         (keypress)="keypress($event)"
+        maxlength="8"
       />
     </mat-form-field>
 
@@ -51,7 +45,32 @@
       <mat-button-toggle value="carte">Carte Bancaire</mat-button-toggle>
     </mat-button-toggle-group>
   </div>
-  <div fxFlex="70">
+  <div fxFlex="30" style="font-size: 24px">
+    <div
+      fxLayout="column"
+      fxLayoutAlign="center center"
+      class="topay"
+      *ngIf="paymentMethod === 'especes'"
+    >
+      <div [ngStyle]="{ color: total - cash > 0 ? '#43996e' : 'black' }">
+        <b>Reste à payer:</b>
+        {{
+          total - cash > 0
+            ? (total - cash | currency: "MAD ":"code":"1.2-2")
+            : (0 | currency: "MAD ":"code":"1.2-2")
+        }}
+      </div>
+      <div [ngStyle]="{ color: total - cash < 0 ? '#43996e' : 'black' }">
+        <b>Monnaie:</b>
+        {{
+          total - cash < 0
+            ? (total - cash | currency: "MAD ":"code":"1.2-2")
+            : (0 | currency: "MAD ":"code":"1.2-2")
+        }}
+      </div>
+    </div>
+  </div>
+  <div fxFlex="40">
     <div class="total-price">
       {{ total | currency: "MAD ":"code":"1.2-2" }}
     </div>

@@ -1,3 +1,4 @@
+import { CurrencyPipe } from '@angular/common';
 import {
   AfterViewChecked,
   Component,
@@ -58,7 +59,8 @@ export class PaymentComponent implements OnInit, AfterViewChecked {
   }
 
   keypress(event: KeyboardEvent) {
-    console.log(event);
+    //this.cash = this.currPipe.transform(this.cash, 'MAD');
+    //event.target.value = this.cash;
   }
 
   returnToOrder() {

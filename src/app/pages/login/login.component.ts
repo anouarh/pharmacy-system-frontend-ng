@@ -11,7 +11,7 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class LoginComponent implements OnInit {
   isLoginMode = true;
-  isLoading = true;
+  isLoading = false;
 
   constructor(private auth: AuthService, private router: Router) {}
 
@@ -31,6 +31,7 @@ export class LoginComponent implements OnInit {
       .set('grant_type', 'password');
 
     if (this.isLoginMode) {
+      this.isLoading = true;
       this.auth.login(body.toString(), username).subscribe(
         (data) => {
           console.log(data);
