@@ -97,9 +97,24 @@ export class PosComponent implements OnInit {
 
   addToOrder(data) {
     if (data != undefined) {
-      this.order.push(data);
+      console.log(data);
+      let index = this.indexOfDrugInOrder(data.drug.id);
+      console.log(index);
+      if (this.order.length > 0 && index > -1) {
+        this.order[index].quantity += data.quantity;
+      } else {
+        this.order.push(data);
+      }
       this.updateTotalPrice();
     }
+  }
+
+  indexOfDrugInOrder(id): number {
+    for (let i = 0; i < this.order.length; i++) {
+      if (this.order[i].drug['id'] == id) return i;
+      else continue;
+    }
+    return -1;
   }
 
   updateTotalPrice() {
