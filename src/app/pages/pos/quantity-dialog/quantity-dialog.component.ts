@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { DialogData } from '../pos/pos.component';
+import { OrderDialogData } from '../pos/pos.component';
 
 @Component({
   selector: 'app-quantity-dialog',
@@ -12,7 +12,7 @@ export class QuantityDialogComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<QuantityDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData
+    @Inject(MAT_DIALOG_DATA) public data: OrderDialogData
   ) {}
 
   ngOnInit(): void {}

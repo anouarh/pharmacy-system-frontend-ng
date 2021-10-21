@@ -9,11 +9,17 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { DrugsService } from 'src/app/services/drugs.service';
 import { Product } from 'src/app/services/product.model';
+import { PaymentDialogComponent } from '../payment-dialog/payment-dialog.component';
 import { QuantityDialogComponent } from '../quantity-dialog/quantity-dialog.component';
 
-export interface DialogData {
+export interface OrderDialogData {
   drug: any;
   quantity: number;
+}
+
+export interface PaymentDialogData {
+  order: any;
+  totalPrice: number;
 }
 
 @Component({
@@ -75,6 +81,7 @@ export class PosComponent implements OnInit {
   deleteItemFromOrder(item) {
     let index = this.order.indexOf(item);
     if (index > -1) this.order.splice(index, 1);
+    this.updateTotalPrice();
   }
 
   openQtyDialog(item): void {
@@ -96,10 +103,26 @@ export class PosComponent implements OnInit {
   }
 
   updateTotalPrice() {
-    this.order.forEach((item) => {
-      this.totalPrice += item.drug.ppv * item.quantity;
-    });
+    if (this.order.length > 0) {
+      this.order.forEach((item) => {
+        this.totalPrice += item.drug.ppv * item.quantity;
+      });
+    } else {
+      this.totalPrice = 0;
+    }
   }
 
   openInfoDialog(): void {}
+
+  openPaymentDialog() {
+    const dialogRef = this.dialog.open(PaymentDialogComponent, {
+      width: '500px',
+      height: '90vh',
+      data: { order: this.order, totalPrice: this.totalPrice },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log(result);
+    });
+  }
 }

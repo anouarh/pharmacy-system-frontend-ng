@@ -73,9 +73,6 @@
           </mat-card-subtitle>
         </mat-card-header>
         <mat-card-actions>
-          <!-- <button mat-icon-button style="color: green" (click)="editQty(item)">
-            <fa-icon [icon]="faEdit"></fa-icon>
-          </button> -->
           <button
             mat-icon-button
             style="color: red"
@@ -95,9 +92,16 @@
       <div style="width: 100%">
         <button
           mat-raised-button
-          style="width: 100%; background-color: green; color: white; font-size: larger;"
+          class="payment-button"
+          (click)="openPaymentDialog()"
+          [disabled]="totalPrice > 0 ? false : true"
         >
-          Paiement ({{ totalPrice | currency: "MAD ":"code":"1.2-2"}})
+          Paiement
+          {{
+            totalPrice > 0
+              ? "(" + (totalPrice | currency: "MAD ":"code":"1.2-2") + ")"
+              : ""
+          }}
         </button>
       </div>
     </div>

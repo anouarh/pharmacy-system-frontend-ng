@@ -14,9 +14,10 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { FormsModule } from '@angular/forms';
 import { QuantityDialogComponent } from './quantity-dialog/quantity-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { PaymentDialogComponent } from './payment-dialog/payment-dialog.component';
 
 @NgModule({
-  declarations: [PosComponent, QuantityDialogComponent],
+  declarations: [PosComponent, QuantityDialogComponent, PaymentDialogComponent],
   imports: [
     CommonModule,
     PosRoutingModule,

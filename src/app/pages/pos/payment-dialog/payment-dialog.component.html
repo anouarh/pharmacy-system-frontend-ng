@@ -1,0 +1,61 @@
+<h1 mat-dialog-title>
+  Total:
+  {{
+    (data.totalPrice | currency: "MAD ":"code":"1.2-2") +
+      (payment.value == "bank"
+        ? ""
+        : data.totalPrice - cash > 0
+        ? ", Reste à Payer:"
+        : cash == null
+        ? ""
+        : ", Monnaie:")
+  }}
+  {{ data.totalPrice - cash | currency: "MAD ":"code":"1.2-2" }}
+</h1>
+
+<div mat-dialog-content style="height: 100%">
+  <h2>Commande</h2>
+  <ul>
+    <li *ngFor="let item of data.order">
+      {{ item.drug.nom }},
+      {{ item.quantity + (item.quantity > 1 ? " unités" : " unité") }},
+      {{
+        item.quantity +
+          " x " +
+          item.drug.ppv +
+          " = " +
+          (item.quantity * item.drug.ppv | currency: "MAD ":"code":"1.2-2")
+      }}
+    </li>
+  </ul>
+
+  <h2>Moyen de Paiement</h2>
+  <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px">
+    <mat-button-toggle-group #payment="matButtonToggleGroup" name="payment">
+      <mat-button-toggle value="cash">Espèces</mat-button-toggle>
+      <mat-button-toggle value="bank">Carte Bancaire</mat-button-toggle>
+    </mat-button-toggle-group>
+    <div
+      fxLayout="row"
+      fxLayoutAlign="center center"
+      *ngIf="payment.value == 'cash' ? true : false"
+      style="width: 100%"
+    >
+      <mat-form-field appearance="outline" style="width: 100%">
+        <mat-label>Espèces</mat-label>
+        <input [(ngModel)]="cash" min="0" type="number" matInput />
+      </mat-form-field>
+    </div>
+  </div>
+</div>
+<div
+  fxLayout="row"
+  fxLayoutAlign="end end"
+  mat-dialog-actions
+  style="width: 100%"
+>
+  <button mat-button (click)="onNoClick()" color="warn">Annuler</button>
+  <button mat-button [mat-dialog-close]="data" cdkFocusInitial color="primary">
+    Valider la commande
+  </button>
+</div>
