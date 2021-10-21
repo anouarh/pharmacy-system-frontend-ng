@@ -12,9 +12,10 @@ import { PaymentComponent } from './payment/payment.component';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { FormsModule } from '@angular/forms';
+import { QuantityDialogComponent } from './quantity-dialog/quantity-dialog.component';
 
 @NgModule({
-  declarations: [PosComponent, PaymentComponent],
+  declarations: [PosComponent, PaymentComponent, QuantityDialogComponent],
   imports: [
     CommonModule,
     PosRoutingModule,
@@ -28,5 +29,6 @@ import { FormsModule } from '@angular/forms';
     MatProgressSpinnerModule,
     FormsModule,
   ],
+  
 })
 export class PosModule {}

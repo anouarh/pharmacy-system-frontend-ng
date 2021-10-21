@@ -1,301 +1,41 @@
-<div
-  class="pos-container vh90"
-  fxLayout="row"
-  fxLayoutAlign="space-around center"
->
+<div style="height: 100%; width: 100%" fxLayout="row">
   <div
-    class="h100"
     fxLayout="column"
-    fxLayoutAlign="center center"
-    fxFlex="45"
+    fxLayoutAlign="start center"
+    fxFlex="70"
+    style="padding: 2rem"
   >
-    <div
-      style="border-bottom: 3px solid #6ec89b"
-      class="orders w100"
-      fxLayout="column"
-      fxLayoutAlign="start center"
-      fxLayoutGap="10px"
-      fxFlex="40"
-      #ordersContainer
-      [scrollTop]="ordersContainer.scrollHeight"
-    >
-      <div fxLayout="column" fxLayoutAlign="center center" *ngIf="!ordersExist">
-        <p style="color: #888">Cette commande est vide</p>
-      </div>
-
-      <div
-        fxLayout="row"
-        fxLayoutAlign="space-between start"
-        fxLayoutGap="2px"
-        class="item fill-div"
-        *ngFor="let order of orders; index as i"
-        (click)="onItemSelect(thisItem, i)"
-        #thisItem
-      >
-        <div>
-          <h3>
-            {{
-              (order.nom | slice: 0:35) + (order.nom.length > 35 ? "..." : "")
-            }}
-          </h3>
-          <p style="color: #888">
-            <b>{{ order.quantity | currency: "MAD ":"code":"1.2-2" }}</b> Unités
-            à {{ order.ppv | currency: "MAD ":"code":"1.2-2" }} / Unité
-          </p>
-        </div>
-
-        <h3>
-          {{ order.total | currency: "MAD ":"code":"1.2-2" }}
-        </h3>
-      </div>
-      <div
-        style="padding-right: 8px; line-height: 0px; padding-bottom: 20px"
-        class="fill-div"
-        fxLayout="row"
-        fxLayoutAlign="end center"
-      >
-        <div class="line" *ngIf="ordersExist">
-          <h2>Total: {{ totalPrice | currency: "MAD ":"code":"1.2-2" }}</h2>
-        </div>
-      </div>
-    </div>
-    <div
-      class="w100"
-      fxLayout="row"
-      fxLayoutAlign="center center"
-      fxLayoutGap="0px"
-      fxFlex
-    >
-      <div
-        class="grey-border payment-button"
-        fxLayout="column"
-        fxLayoutAlign="center center"
-        fxFlex="45"
-        style="height: 100%"
-        (click)="onPaymentClick()"
-      >
-        <fa-icon [icon]="faChevronCircleRight" size="3x"></fa-icon>
-        <h3>Payment</h3>
-      </div>
-      <div
-        style="height: 100%"
-        fxLayout="column"
-        fxLayoutAlign="space-evenly start"
-        fxFlex
-      >
-        <div
-          class="calculator-row w100"
-          fxLayout="row"
-          fxLayoutAlign="start start"
-        >
-          <div
-            class="calculator-button grey-border"
-            fxLayout="column"
-            fxLayoutAlign="center center"
-            fxFlex="25"
-            (click)="onNumberClick($event)"
-          >
-            <h3>1</h3>
-          </div>
-          <div
-            class="calculator-button grey-border"
-            fxLayout="column"
-            fxLayoutAlign="center center"
-            fxFlex="25"
-            (click)="onNumberClick($event)"
-          >
-            <h3>2</h3>
-          </div>
-          <div
-            class="calculator-button grey-border"
-            fxLayout="column"
-            fxLayoutAlign="center center"
-            fxFlex="25"
-            (click)="onNumberClick($event)"
-          >
-            <h3>3</h3>
-          </div>
-          <div
-            class="starting-mode calculator-button grey-border"
-            fxLayout="column"
-            fxLayoutAlign="center center"
-            fxFlex="25"
-            (click)="onModeClick(qty)"
-            #qty
-          >
-            <h3>Qté</h3>
-          </div>
-        </div>
-        <div
-          class="calculator-row w100"
-          fxLayout="row"
-          fxLayoutAlign="start start"
-        >
-          <div
-            class="calculator-button grey-border"
-            fxLayout="column"
-            fxLayoutAlign="center center"
-            fxFlex="25"
-            (click)="onNumberClick($event)"
-          >
-            <h3>4</h3>
-          </div>
-          <div
-            class="calculator-button grey-border"
-            fxLayout="column"
-            fxLayoutAlign="center center"
-            fxFlex="25"
-            (click)="onNumberClick($event)"
-          >
-            <h3>5</h3>
-          </div>
-          <div
-            class="calculator-button grey-border"
-            fxLayout="column"
-            fxLayoutAlign="center center"
-            fxFlex="25"
-            (click)="onNumberClick($event)"
-          >
-            <h3>6</h3>
-          </div>
-          <div
-            class="calculator-button grey-border"
-            fxLayout="column"
-            fxLayoutAlign="center center"
-            fxFlex="25"
-            (click)="onModeClick(disc)"
-            #disc
-          >
-            <h3>Réduc</h3>
-          </div>
-        </div>
-        <div
-          class="calculator-row w100"
-          fxLayout="row"
-          fxLayoutAlign="start start"
-        >
-          <div
-            class="calculator-button grey-border"
-            fxLayout="column"
-            fxLayoutAlign="center center"
-            fxFlex="25"
-            (click)="onNumberClick($event)"
-          >
-            <h3>7</h3>
-          </div>
-          <div
-            class="calculator-button grey-border"
-            fxLayout="column"
-            fxLayoutAlign="center center"
-            fxFlex="25"
-            (click)="onNumberClick($event)"
-          >
-            <h3>8</h3>
-          </div>
-          <div
-            class="calculator-button grey-border"
-            fxLayout="column"
-            fxLayoutAlign="center center"
-            fxFlex="25"
-            (click)="onNumberClick($event)"
-          >
-            <h3>9</h3>
-          </div>
-          <div
-            class="calculator-button grey-border"
-            fxLayout="column"
-            fxLayoutAlign="center center"
-            fxFlex="25"
-            (click)="onModeClick(price)"
-            #price
-          >
-            <h3>Prix</h3>
-          </div>
-        </div>
-        <div
-          class="calculator-row w100"
-          fxLayout="row"
-          fxLayoutAlign="start start"
-        >
-          <div
-            class="calculator-button grey-border"
-            fxLayout="column"
-            fxLayoutAlign="center center"
-            fxFlex="25"
-          >
-            <h3>+/-</h3>
-          </div>
-          <div
-            class="calculator-button grey-border"
-            fxLayout="column"
-            fxLayoutAlign="center center"
-            fxFlex="25"
-            (click)="onNumberClick($event)"
-          >
-            <h3>0</h3>
-          </div>
-          <div
-            class="calculator-button grey-border"
-            fxLayout="column"
-            fxLayoutAlign="center center"
-            fxFlex="25"
-          >
-            <h3>.</h3>
-          </div>
-          <div
-            class="calculator-button grey-border"
-            fxLayout="column"
-            fxLayoutAlign="center center"
-            fxFlex="25"
-            (click)="onRemoveClick()"
-          >
-            <fa-icon [icon]="faBackspace" size="lg"></fa-icon>
-          </div>
-        </div>
-      </div>
+    <mat-form-field style="width: 100%" appearance="fill">
+      <mat-label>Rechercher un médicament</mat-label>
+      <input matInput />
+    </mat-form-field>
+    <div fxLayout="row">
+      <mat-card *ngFor="let item of drugs" style="margin-right: 1rem; max-width: 12rem;">
+        <mat-card-header>
+          <mat-card-title>{{
+            (item.nom | slice: 0:25) + (item.nom.length > 25 ? "..." : "")
+          }}</mat-card-title>
+          <mat-card-subtitle>{{
+            item.ppv | currency: "MAD ":"code":"1.2-2"
+          }}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-actions>
+          <button mat-icon-button style="color: grey" (click)="openInfoDialog()">
+            <fa-icon [icon]="faInfoCircle"></fa-icon>
+          </button>
+          <button mat-icon-button style="color: green" (click)="openQtyDialog(item)">
+            <fa-icon [icon]="faCartPlus"></fa-icon>
+          </button>
+        </mat-card-actions>
+      </mat-card>
     </div>
   </div>
   <div
-    style="border-left: 3px solid #787878"
-    class="h100"
     fxLayout="column"
-    fxLayoutAlign="start center"
-    fxLayoutGap="15px"
+    fxLayoutAlign="center center"
     fxFlex
+    style="background-color: aquamarine"
   >
-    <div
-      class="w100"
-      fxLayout="column"
-      fxLayoutAlign="center center"
-      fxLayoutGap="10px"
-    >
-      <mat-form-field appearance="fill">
-        <mat-label>Rechercher un médicament</mat-label>
-        <input matInput />
-      </mat-form-field>
-      <div
-        class="product-list"
-        fxLayout="row"
-        fxLayoutAlign="start start"
-        fxLayoutGap="20px"
-      >
-        <div
-          class="product"
-          fxLayout="column"
-          fxLayoutAlign="center center"
-          fxLayoutGap="10px"
-          *ngFor="let drug of drugs; index as i"
-          (click)="onProductSelect(i)"
-        >
-          <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
-
-          {{ drug.id }}
-          <h2>
-            {{ (drug.nom | slice: 0:35) + (drug.nom.length > 35 ? "..." : "") }}
-          </h2>
-          {{ drug.ppv | currency: "MAD ":"code":"1.2-2" }}
-        </div>
-      </div>
-    </div>
+    Cart
   </div>
 </div>
