@@ -1,101 +1,10 @@
-.black-border {
-  border: 1px solid black;
-  border-radius: 3px;
+.mat-card-actions {
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
 }
-
-.grey-border {
-  border: 1px solid #bfbfbf;
-}
-
-.vh90 {
-  height: 90vh;
-}
-
-.h100 {
-  height: 100%;
-}
-
-.w100 {
-  width: 100%;
-}
-
-.pos-container .mat-form-field {
-  width: 95%;
-  margin-top: 20px;
-}
-
-.orders {
-  overflow: overlay;
-  height: 100px;
-  background-color: #fff;
-}
-
-.orders mat-card {
-  width: 70%;
-}
-
-.item {
-  padding-left: 20px;
-  height: 80px;
-  padding-right: 25px;
-  cursor: pointer;
-  line-height: 5px;
-}
-
-.fill-div {
-  width: -webkit-fill-available;
-}
-
-.line {
-  float: right;
-  margin-right: 15px;
-  margin-left: 15px;
-  padding-top: 5px;
-  border-top: solid 2px;
-  border-top-color: currentcolor;
-  border-color: #777;
-}
-
-.product {
-  border: 1px solid black;
-  background-color: #fff;
-  height: 150px;
-  width: 150px;
-  cursor: pointer;
-  min-width: 200px;
-  min-height: 200px;
-  text-align: center;
-}
-
-.product-list {
-  width: 95%;
-}
-
-.calculator-row {
-  height: 25%;
-}
-
-.calculator-button {
-  height: 100%;
-  cursor: pointer;
-}
-
-.calculator-button:hover {
-  background-color: #e2e2e2;
-  transition: all 150ms linear;
-  color: black;
-}
-
-.starting-mode {
-  background-color: #6ec89b;
-  color: white;
-}
-
-.payment-button {
-  cursor: pointer;
-}
-
-.payment-button:hover {
-  background-color: #e2e2e2;
-  transition: all 150ms linear;
+.total-price {
+  font-size: 32px;
+  color: #43996e;
+  text-shadow: 0px 2px white, 0px 2px 2px rgba(0, 0, 0, 0.27);
 }
