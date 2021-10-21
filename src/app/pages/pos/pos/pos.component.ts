@@ -1,7 +1,12 @@
-import { Component, OnInit, Renderer2 } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { faCartPlus, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
+import {
+  faCartPlus,
+  faEdit,
+  faInfoCircle,
+  faTrash,
+} from '@fortawesome/free-solid-svg-icons';
 import { DrugsService } from 'src/app/services/drugs.service';
 import { Product } from 'src/app/services/product.model';
 import { QuantityDialogComponent } from '../quantity-dialog/quantity-dialog.component';
@@ -17,15 +22,17 @@ export interface DialogData {
   styleUrls: ['./pos.component.css'],
 })
 export class PosComponent implements OnInit {
-  orders: any = [];
+  order: any = [];
   products: Product[];
   drugs: any;
   currentUser: any;
-  selectedDrug: any;
+  totalPrice: number = 0;
 
   faCartPlus = faCartPlus;
   faInfoCircle = faInfoCircle;
-  quantity: number;
+  faEdit = faEdit;
+  faTrash = faTrash;
+  quantity: number = 1;
 
   constructor(
     public dialog: MatDialog,
@@ -36,7 +43,7 @@ export class PosComponent implements OnInit {
       let res = JSON.parse(
         this.router.getCurrentNavigation().extras.state.orders
       );
-      this.orders = JSON.parse(res);
+      this.order = JSON.parse(res);
     }
   }
 
@@ -62,19 +69,35 @@ export class PosComponent implements OnInit {
         this.drugs = result;
         //this.isLoadingResults = false;
         localStorage.getItem('userData');
-        console.log(this.drugs);
       });
   }
 
+  deleteItemFromOrder(item) {
+    let index = this.order.indexOf(item);
+    if (index > -1) this.order.splice(index, 1);
+  }
+
   openQtyDialog(item): void {
-    console.log(item);
     const dialogRef = this.dialog.open(QuantityDialogComponent, {
       width: '500px',
       data: { drug: item, quantity: this.quantity },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log('The dialog was closed');
+      this.addToOrder(result);
+    });
+  }
+
+  addToOrder(data) {
+    if (data != undefined) {
+      this.order.push(data);
+      this.updateTotalPrice();
+    }
+  }
+
+  updateTotalPrice() {
+    this.order.forEach((item) => {
+      this.totalPrice += item.drug.ppv * item.quantity;
     });
   }
 

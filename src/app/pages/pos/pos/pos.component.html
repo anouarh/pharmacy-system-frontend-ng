@@ -3,14 +3,17 @@
     fxLayout="column"
     fxLayoutAlign="start center"
     fxFlex="70"
-    style="padding: 2rem"
+    style="padding: 2rem; border-right: 3px solid grey"
   >
     <mat-form-field style="width: 100%" appearance="fill">
       <mat-label>Rechercher un médicament</mat-label>
       <input matInput />
     </mat-form-field>
     <div fxLayout="row">
-      <mat-card *ngFor="let item of drugs" style="margin-right: 1rem; max-width: 12rem;">
+      <mat-card
+        *ngFor="let item of drugs"
+        style="margin-right: 1rem; max-width: 12rem"
+      >
         <mat-card-header>
           <mat-card-title>{{
             (item.nom | slice: 0:25) + (item.nom.length > 25 ? "..." : "")
@@ -20,10 +23,18 @@
           }}</mat-card-subtitle>
         </mat-card-header>
         <mat-card-actions>
-          <button mat-icon-button style="color: grey" (click)="openInfoDialog()">
+          <button
+            mat-icon-button
+            style="color: grey"
+            (click)="openInfoDialog()"
+          >
             <fa-icon [icon]="faInfoCircle"></fa-icon>
           </button>
-          <button mat-icon-button style="color: green" (click)="openQtyDialog(item)">
+          <button
+            mat-icon-button
+            style="color: green"
+            (click)="openQtyDialog(item)"
+          >
             <fa-icon [icon]="faCartPlus"></fa-icon>
           </button>
         </mat-card-actions>
@@ -32,10 +43,63 @@
   </div>
   <div
     fxLayout="column"
-    fxLayoutAlign="center center"
+    fxLayoutAlign="start center"
     fxFlex
-    style="background-color: aquamarine"
+    style="background-color: #f7f7f7b8; padding: 1rem"
   >
-    Cart
+    <h1>Votre Commande</h1>
+    <div
+      fxLayout="column"
+      fxLayoutAlign="start center"
+      fxFlex="70"
+      style="overflow: auto"
+    >
+      <mat-card
+        *ngFor="let item of order"
+        style="margin-bottom: 1rem; background-color: #ededed"
+      >
+        <mat-card-header>
+          <mat-card-title>{{ item.drug.nom }}</mat-card-title>
+          <mat-card-subtitle
+            >{{ item.quantity + (item.quantity > 1 ? " unités" : " unité") }},
+            {{
+              item.quantity +
+                " x " +
+                item.drug.ppv +
+                " = " +
+                (item.quantity * item.drug.ppv
+                  | currency: "MAD ":"code":"1.2-2")
+            }}
+          </mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-actions>
+          <!-- <button mat-icon-button style="color: green" (click)="editQty(item)">
+            <fa-icon [icon]="faEdit"></fa-icon>
+          </button> -->
+          <button
+            mat-icon-button
+            style="color: red"
+            (click)="deleteItemFromOrder(item)"
+          >
+            <fa-icon [icon]="faTrash"></fa-icon>
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+    <div
+      fxLayout="column"
+      fxLayoutAlign="end center"
+      fxFlex
+      style="width: 100%"
+    >
+      <div style="width: 100%">
+        <button
+          mat-raised-button
+          style="width: 100%; background-color: green; color: white; font-size: larger;"
+        >
+          Paiement ({{ totalPrice | currency: "MAD ":"code":"1.2-2"}})
+        </button>
+      </div>
+    </div>
   </div>
 </div>

@@ -8,14 +8,15 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatListModule } from '@angular/material/list';
 import { MatCardModule } from '@angular/material/card';
-import { PaymentComponent } from './payment/payment.component';
+
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { FormsModule } from '@angular/forms';
 import { QuantityDialogComponent } from './quantity-dialog/quantity-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
-  declarations: [PosComponent, PaymentComponent, QuantityDialogComponent],
+  declarations: [PosComponent, QuantityDialogComponent],
   imports: [
     CommonModule,
     PosRoutingModule,
@@ -28,7 +29,7 @@ import { QuantityDialogComponent } from './quantity-dialog/quantity-dialog.compo
     MatButtonToggleModule,
     MatProgressSpinnerModule,
     FormsModule,
+    MatDialogModule,
   ],
-  
 })
 export class PosModule {}

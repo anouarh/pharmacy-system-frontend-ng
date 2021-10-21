@@ -1,10 +1,10 @@
 <h1 mat-dialog-title>{{ data.drug.nom }}</h1>
 <div fxLayout="column" fxLayoutAlign="center center" style="width: 100%">
   <div mat-dialog-content style="width: 100%">
-    <mat-form-field appearance="outline" style="width: 100%;">
+    <mat-form-field appearance="outline" style="width: 100%">
       <mat-label>Quantité</mat-label>
-      <input [(ngModel)]="quantity" type="number" matInput />
-      <span style="font-weight: bold;" matSuffix>
+      <input [(ngModel)]="data.quantity" type="number" matInput />
+      <span style="font-weight: bold" matSuffix>
         à {{ data.drug.ppv | currency: "MAD ":"code":"1.2-2" }}</span
       >
     </mat-form-field>
@@ -17,6 +17,13 @@
     style="width: 100%"
   >
     <button mat-button (click)="onNoClick()" color="warn">Annuler</button>
-    <button mat-button cdkFocusInitial color="primary">Ajouter</button>
+    <button
+      mat-button
+      [mat-dialog-close]="data"
+      cdkFocusInitial
+      color="primary"
+    >
+      Ajouter
+    </button>
   </div>
 </div>

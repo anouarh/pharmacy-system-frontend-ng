@@ -3,3 +3,8 @@
   flex-direction: row;
   justify-content: end;
 }
+.total-price {
+  font-size: 32px;
+  color: #43996e;
+  text-shadow: 0px 2px white, 0px 2px 2px rgba(0, 0, 0, 0.27);
+}
