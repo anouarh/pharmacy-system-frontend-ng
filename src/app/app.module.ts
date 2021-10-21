@@ -19,6 +19,7 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './pages/login/login.component';
 import { AuthInterceptorService } from './services/auth-interceptor.service';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { QuantityDialogComponent } from './pages/pos/quantity-dialog/quantity-dialog.component';
 
 @NgModule({
   declarations: [AppComponent, LoginComponent],
@@ -49,5 +50,6 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     },
   ],
   bootstrap: [AppComponent],
+  entryComponents: [QuantityDialogComponent],
 })
 export class AppModule {}
