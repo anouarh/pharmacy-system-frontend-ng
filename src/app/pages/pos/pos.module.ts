@@ -15,6 +15,7 @@ import { FormsModule } from '@angular/forms';
 import { QuantityDialogComponent } from './quantity-dialog/quantity-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { PaymentDialogComponent } from './payment-dialog/payment-dialog.component';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @NgModule({
   declarations: [PosComponent, QuantityDialogComponent, PaymentDialogComponent],
@@ -31,6 +32,7 @@ import { PaymentDialogComponent } from './payment-dialog/payment-dialog.componen
     MatProgressSpinnerModule,
     FormsModule,
     MatDialogModule,
+    MatProgressBarModule,
   ],
 })
 export class PosModule {}

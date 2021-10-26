@@ -17,7 +17,7 @@ export class DrugsService implements OnInit {
 
   getAllByUsername(username: string) {
     return this.http.get(
-      DrugsService.baseUrl + 'drugs/drugsByUser/' + username
+      DrugsService.baseUrl + 'inventoryItems/inventoryItemsByUser/' + username
     );
   }
 }

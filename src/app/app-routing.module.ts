@@ -29,12 +29,6 @@ const routes: Routes = [
       ),
   },
   {
-    path: 'sales',
-    canActivate: [AuthGuard],
-    loadChildren: () =>
-      import('./pages/sales/sales.module').then((m) => m.SalesModule),
-  },
-  {
     path: 'reporting',
     canActivate: [AuthGuard],
     loadChildren: () =>

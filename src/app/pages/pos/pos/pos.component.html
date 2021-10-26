@@ -5,6 +5,7 @@
     fxFlex="70"
     style="padding: 2rem; border-right: 3px solid grey"
   >
+    <mat-progress-bar *ngIf="isLoadingResults" mode="query"></mat-progress-bar>
     <mat-form-field style="width: 100%" appearance="fill">
       <mat-label>Rechercher un médicament</mat-label>
       <input matInput />
@@ -16,10 +17,11 @@
       >
         <mat-card-header>
           <mat-card-title>{{
-            (item.nom | slice: 0:25) + (item.nom.length > 25 ? "..." : "")
+            (item.drug.nom | slice: 0:25) +
+              (item.drug.nom.length > 25 ? "..." : "")
           }}</mat-card-title>
           <mat-card-subtitle>{{
-            item.ppv | currency: "MAD ":"code":"1.2-2"
+            item.drug.ppv | currency: "MAD ":"code":"1.2-2"
           }}</mat-card-subtitle>
         </mat-card-header>
         <mat-card-actions>
@@ -55,19 +57,19 @@
       style="overflow: auto"
     >
       <mat-card
-        *ngFor="let item of order"
+        *ngFor="let item of salesOrderItems"
         style="margin-bottom: 1rem; background-color: #ededed"
       >
         <mat-card-header>
-          <mat-card-title>{{ item.drug.nom }}</mat-card-title>
+          <mat-card-title>{{ item.inventoryItem.drug.nom }}</mat-card-title>
           <mat-card-subtitle
             >{{ item.quantity + (item.quantity > 1 ? " unités" : " unité") }},
             {{
               item.quantity +
                 " x " +
-                item.drug.ppv +
+                item.inventoryItem.drug.ppv +
                 " = " +
-                (item.quantity * item.drug.ppv
+                (item.quantity * item.inventoryItem.drug.ppv
                   | currency: "MAD ":"code":"1.2-2")
             }}
           </mat-card-subtitle>
