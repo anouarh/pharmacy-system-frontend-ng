@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { SalesOrder } from 'src/app/models/salesorder.model';
 import { PaymentDialogData } from '../pos/pos.component';
 
 @Component({

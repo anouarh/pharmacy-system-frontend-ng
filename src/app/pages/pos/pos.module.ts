@@ -16,6 +16,8 @@ import { QuantityDialogComponent } from './quantity-dialog/quantity-dialog.compo
 import { MatDialogModule } from '@angular/material/dialog';
 import { PaymentDialogComponent } from './payment-dialog/payment-dialog.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatDividerModule } from '@angular/material/divider';
 
 @NgModule({
   declarations: [PosComponent, QuantityDialogComponent, PaymentDialogComponent],
@@ -33,6 +35,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     FormsModule,
     MatDialogModule,
     MatProgressBarModule,
+    MatSnackBarModule,
+    MatDividerModule,
   ],
 })
 export class PosModule {}

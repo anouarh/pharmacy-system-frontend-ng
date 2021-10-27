@@ -15,19 +15,24 @@
 
 <div mat-dialog-content style="height: 100%">
   <h2>Commande</h2>
-  <ul>
-    <li *ngFor="let item of data.order">
-      {{ item.drug.nom }},
-      {{ item.quantity + (item.quantity > 1 ? " unités" : " unité") }},
-      {{
-        item.quantity +
-          " x " +
-          item.drug.ppv +
-          " = " +
-          (item.quantity * item.drug.ppv | currency: "MAD ":"code":"1.2-2")
-      }}
-    </li>
-  </ul>
+  <mat-list>
+    <div *ngFor="let item of data.salesOrder.salesOrderItems">
+      <mat-divider></mat-divider>
+      <mat-list-item>
+        {{ item.inventoryItem.drug.nom }},
+        {{ item.quantity + (item.quantity > 1 ? " unités" : " unité") }},
+        {{
+          item.quantity +
+            " x " +
+            item.inventoryItem.drug.ppv +
+            " = " +
+            (item.quantity * item.inventoryItem.drug.ppv
+              | currency: "MAD ":"code":"1.2-2")
+        }}
+      </mat-list-item>
+      <mat-divider></mat-divider>
+    </div>
+  </mat-list>
 
   <h2>Moyen de Paiement</h2>
   <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px">

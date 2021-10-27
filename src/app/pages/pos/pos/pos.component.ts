@@ -7,14 +7,15 @@ import {
   faInfoCircle,
   faTrash,
 } from '@fortawesome/free-solid-svg-icons';
+import { SalesOrder } from 'src/app/models/salesorder.model';
+import { SalesOrderItem } from 'src/app/models/salesorderitem.model';
 import { DrugsService } from 'src/app/services/drugs.service';
-import { SalesOrder } from 'src/app/services/salesorder.model';
-import { SalesOrderItem } from 'src/app/services/salesorderitem.model';
+import { SalesOrderService } from 'src/app/services/salesorder.service';
 import { PaymentDialogComponent } from '../payment-dialog/payment-dialog.component';
 import { QuantityDialogComponent } from '../quantity-dialog/quantity-dialog.component';
 
-export interface PaymentDialogData {
-  order: any;
+export class PaymentDialogData {
+  salesOrder: SalesOrder;
   totalPrice: number;
 }
 
@@ -24,7 +25,6 @@ export interface PaymentDialogData {
   styleUrls: ['./pos.component.css'],
 })
 export class PosComponent implements OnInit {
-  order: any = [];
   salesOrder: SalesOrder;
   salesOrderItems: SalesOrderItem[] = [];
   drugs: any;
@@ -41,7 +41,8 @@ export class PosComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
     private router: Router,
-    private drugsService: DrugsService
+    private drugsService: DrugsService,
+    private salesOrderService: SalesOrderService
   ) {}
 
   ngOnInit(): void {
@@ -130,14 +131,28 @@ export class PosComponent implements OnInit {
   openInfoDialog(): void {}
 
   openPaymentDialog() {
+    let newSalesOrder = new SalesOrder(new Date(), this.salesOrderItems);
     const dialogRef = this.dialog.open(PaymentDialogComponent, {
       width: '500px',
       height: '90vh',
-      data: { order: this.order, totalPrice: this.totalPrice },
+      data: { salesOrder: newSalesOrder, totalPrice: this.totalPrice },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log(result);
+      this.saveSalesOrder(result);
     });
+  }
+
+  saveSalesOrder(data) {
+    if (data != undefined) {
+      console.log(data.salesOrder);
+      this.salesOrderService
+        .saveSalesOrder(data.salesOrder)
+        .subscribe((result) => {
+          console.log(result);
+          //this.getAllDrugs();
+          window.location.reload();
+        });
+    }
   }
 }

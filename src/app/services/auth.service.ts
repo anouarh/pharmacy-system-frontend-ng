@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { User } from '../services/user.model';
+import { User } from '../models/user.model';
 
 let apiUrl = environment.api;
 let authUrl = environment.authUrl;

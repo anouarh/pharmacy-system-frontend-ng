@@ -20,9 +20,15 @@
             (item.drug.nom | slice: 0:25) +
               (item.drug.nom.length > 25 ? "..." : "")
           }}</mat-card-title>
-          <mat-card-subtitle>{{
-            item.drug.ppv | currency: "MAD ":"code":"1.2-2"
-          }}</mat-card-subtitle>
+          <mat-card-subtitle
+            >{{ item.drug.ppv | currency: "MAD ":"code":"1.2-2" }},
+            {{
+              item.quantityOnHand +
+                (item.quantityOnHand > 1
+                  ? " unités en stock"
+                  : " unité en stock")
+            }}</mat-card-subtitle
+          >
         </mat-card-header>
         <mat-card-actions>
           <button
