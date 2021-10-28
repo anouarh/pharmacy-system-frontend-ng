@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import {
+  faArrowRight,
+  faMoneyBillWave,
+} from '@fortawesome/free-solid-svg-icons';
+import { DrugsService } from 'src/app/services/drugs.service';
 import { SalesOrderService } from 'src/app/services/salesorder.service';
 
 @Component({
@@ -10,11 +15,19 @@ export class DashboardComponent implements OnInit {
   currentUser: any;
   isLoadingResults: boolean = false;
   moneyMadeToday: any;
-  constructor(private salesOrderService: SalesOrderService) {}
+  itemsWithOneUnit: number = 0;
+  faMoneyBillWave = faMoneyBillWave;
+  iventoryItems: any;
+  salesOrders: any = [];
+  constructor(
+    private salesOrderService: SalesOrderService,
+    private drugsService: DrugsService
+  ) {}
 
   ngOnInit(): void {
     this.getUserData();
     this.getTodaysSales();
+    this.getAllIventoryItems();
   }
 
   getUserData() {
@@ -33,6 +46,15 @@ export class DashboardComponent implements OnInit {
       .subscribe((result) => {
         this.moneyMadeToday = result;
         this.isLoadingResults = false;
+        localStorage.getItem('userData');
+      });
+  }
+
+  getAllIventoryItems() {
+    this.drugsService
+      .getAllByUsername(this.currentUser.username)
+      .subscribe((result) => {
+        this.iventoryItems = result;
         localStorage.getItem('userData');
       });
   }

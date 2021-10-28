@@ -11,6 +11,10 @@ import { SalesOrder } from 'src/app/models/salesorder.model';
 import { SalesOrderItem } from 'src/app/models/salesorderitem.model';
 import { DrugsService } from 'src/app/services/drugs.service';
 import { SalesOrderService } from 'src/app/services/salesorder.service';
+import {
+  ConfirmationDialogComponent,
+  ConfirmDialogModel,
+} from '../../shared/confirmation-dialog/confirmation-dialog.component';
 import { PaymentDialogComponent } from '../payment-dialog/payment-dialog.component';
 import { QuantityDialogComponent } from '../quantity-dialog/quantity-dialog.component';
 
@@ -139,7 +143,20 @@ export class PosComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      this.saveSalesOrder(result);
+      this.confirmDialog(result);
+    });
+  }
+
+  confirmDialog(data): void {
+    const message = `Êtes-vous sûr de vouloir passez la commande?`;
+    const dialogData = new ConfirmDialogModel('Passez la commande', message);
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      maxWidth: '400px',
+      data: dialogData,
+    });
+
+    dialogRef.afterClosed().subscribe((dialogResult) => {
+      if (dialogResult) this.saveSalesOrder(data);
     });
   }
 
@@ -150,7 +167,6 @@ export class PosComponent implements OnInit {
         .saveSalesOrder(data.salesOrder)
         .subscribe((result) => {
           console.log(result);
-          //this.getAllDrugs();
           window.location.reload();
         });
     }

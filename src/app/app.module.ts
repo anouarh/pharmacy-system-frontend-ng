@@ -21,9 +21,10 @@ import { AuthInterceptorService } from './services/auth-interceptor.service';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { QuantityDialogComponent } from './pages/pos/quantity-dialog/quantity-dialog.component';
 import { PaymentDialogComponent } from './pages/pos/payment-dialog/payment-dialog.component';
+import { ConfirmationDialogComponent } from './pages/shared/confirmation-dialog/confirmation-dialog.component';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent],
+  declarations: [AppComponent, LoginComponent, ConfirmationDialogComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -51,6 +52,10 @@ import { PaymentDialogComponent } from './pages/pos/payment-dialog/payment-dialo
     },
   ],
   bootstrap: [AppComponent],
-  entryComponents: [QuantityDialogComponent, PaymentDialogComponent],
+  entryComponents: [
+    QuantityDialogComponent,
+    PaymentDialogComponent,
+    ConfirmationDialogComponent,
+  ],
 })
 export class AppModule {}

@@ -23,7 +23,7 @@ import { AuthService } from './services/auth.service';
 export class AppComponent implements OnInit, OnDestroy {
   isAuthenticated = false;
   private userSub: Subscription;
-  title = 'Systéme de Gestion de Pharmacie';
+  title = 'PharmaSys';
   username: string;
 
   faPrescriptionBottleAlt = faPrescriptionBottleAlt;

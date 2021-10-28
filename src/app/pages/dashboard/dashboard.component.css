@@ -1,0 +1,25 @@
+.dashboard-item {
+  color: white;
+  border: 1px solid #ededed;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: start;
+  min-width: 300px;
+  min-height: 150px;
+  margin: 15px;
+  padding: 25px;
+}
+
+.sales {
+  background-color: #00a65a;
+}
+
+.stock {
+  background-color: #d95352;
+}
+
+.no-of-sales {
+  background-color: #00c0f0;
+}

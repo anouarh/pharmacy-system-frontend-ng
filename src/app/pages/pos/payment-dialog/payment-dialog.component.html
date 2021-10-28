@@ -60,7 +60,13 @@
   style="width: 100%"
 >
   <button mat-button (click)="onNoClick()" color="warn">Annuler</button>
-  <button mat-button [mat-dialog-close]="data" cdkFocusInitial color="primary">
+  <button
+    mat-button
+    [mat-dialog-close]="data"
+    cdkFocusInitial
+    color="primary"
+    [disabled]="payment.value ? false : true"
+  >
     Valider la commande
   </button>
 </div>
