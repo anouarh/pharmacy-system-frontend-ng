@@ -16,6 +16,7 @@ export class SalesOrderService implements OnInit {
     console.log(this.auth.user);
   }
 
+
   getTodaysSales(username: string) {
     return this.http.get(
       SalesOrderService.baseUrl + 'salesOrders/salesToday/' + username

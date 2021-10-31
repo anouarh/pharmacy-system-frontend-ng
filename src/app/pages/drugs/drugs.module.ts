@@ -14,6 +14,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { DrugsSearchDialogComponent } from './drugs-search-dialog/drugs-search-dialog.component';
 import { MatIconModule } from '@angular/material/icon';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @NgModule({
   declarations: [DrugsComponent, DrugsSearchDialogComponent],
@@ -29,6 +30,7 @@ import { MatIconModule } from '@angular/material/icon';
     FlexLayoutModule,
     MatDialogModule,
     MatIconModule,
+    MatProgressBarModule,
   ],
   entryComponents: [DrugsSearchDialogComponent],
 })

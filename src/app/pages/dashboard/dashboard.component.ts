@@ -13,12 +13,12 @@ import { SalesOrderService } from 'src/app/services/salesorder.service';
 })
 export class DashboardComponent implements OnInit {
   currentUser: any;
-  isLoadingResults: boolean = false;
-  moneyMadeToday: any;
+  salesToday: any;
   itemsWithOneUnit: number = 0;
   faMoneyBillWave = faMoneyBillWave;
   iventoryItems: any;
   salesOrders: any = [];
+  isLoading: boolean = false;
   constructor(
     private salesOrderService: SalesOrderService,
     private drugsService: DrugsService
@@ -40,12 +40,12 @@ export class DashboardComponent implements OnInit {
   }
 
   getTodaysSales() {
-    this.isLoadingResults = true;
+    this.isLoading = true;
     this.salesOrderService
       .getTodaysSales(this.currentUser.username)
       .subscribe((result) => {
-        this.moneyMadeToday = result;
-        this.isLoadingResults = false;
+        this.salesToday = result;
+        this.isLoading = false;
         localStorage.getItem('userData');
       });
   }

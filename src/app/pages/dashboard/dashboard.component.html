@@ -1,6 +1,7 @@
+<mat-progress-bar *ngIf="isLoading" mode="query"></mat-progress-bar>
 <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
   <div class="dashboard-item sales">
-    <h1>{{ moneyMadeToday | currency: "MAD ":"code":"1.2-2" }}</h1>
+    <h1>{{ salesToday.moneyMadeToday | currency: "MAD ":"code":"1.2-2" }}</h1>
     <p style="color: #e7dede">Ventes d'aujourd'hui</p>
   </div>
   <div class="dashboard-item stock">
@@ -8,7 +9,7 @@
     <p style="color: #e7dede">En stock</p>
   </div>
   <div class="dashboard-item no-of-sales">
-    <h1>{{ salesOrders.length }}</h1>
+    <h1>{{ salesToday.numberOfSalesToday }}</h1>
     <p style="color: #e7dede">Nombre de ventes d'aujourd'hui</p>
   </div>
 </div>

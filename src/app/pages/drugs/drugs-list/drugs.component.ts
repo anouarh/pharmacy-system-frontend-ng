@@ -21,7 +21,7 @@ let endPointDrugs = environment.api + 'drugs';
 })
 export class DrugsComponent implements OnInit {
   drugs: any;
-  isLoadingResults = true;
+  isLoading: boolean;
   resultsLength = 0;
   displayedColumns: string[] = [
     'nom',
@@ -31,7 +31,7 @@ export class DrugsComponent implements OnInit {
     'prixHospitalier',
     'codeATC',
     'natureDuProduit',
-    'actions',
+    'quantité',
   ];
   currentUser: any;
 
@@ -61,11 +61,12 @@ export class DrugsComponent implements OnInit {
   }
 
   getAllDrugs() {
+    this.isLoading = true;
     this.drugService
       .getAllByUsername(this.currentUser.username)
       .subscribe((result) => {
         this.drugs = result;
-        this.isLoadingResults = false;
+        this.isLoading = false;
         this.resultsLength = this.drugs.total_count;
         console.log(this.drugs);
         localStorage.getItem('userData');
