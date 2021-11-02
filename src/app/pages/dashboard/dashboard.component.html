@@ -1,5 +1,5 @@
 <mat-progress-bar *ngIf="isLoading" mode="query"></mat-progress-bar>
-<div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+<div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px" *ngIf="!isLoading">
   <div class="dashboard-item sales">
     <h1>{{ salesToday.moneyMadeToday | currency: "MAD ":"code":"1.2-2" }}</h1>
     <p style="color: #e7dede">Ventes d'aujourd'hui</p>

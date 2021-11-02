@@ -6,7 +6,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "angular-electron": {
+    "pharmacy-frontend-ng": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -29,6 +29,8 @@
               "src/assets"
             ],
             "styles": [
+              "src/custom-theme.scss",
+              "node_modules/font-awesome/css/font-awesome.css",
               "src/styles.scss"
             ],
             "scripts": [],
@@ -90,24 +92,24 @@
         "serve": {
           "builder": "@angular-builders/custom-webpack:dev-server",
           "options": {
-            "browserTarget": "angular-electron:build"
+            "browserTarget": "pharmacy-frontend-ng:build"
           },
           "configurations": {
             "dev": {
-              "browserTarget": "angular-electron:build:dev"
+              "browserTarget": "pharmacy-frontend-ng:build:dev"
             },
             "web": {
-              "browserTarget": "angular-electron:build:web"
+              "browserTarget": "pharmacy-frontend-ng:build:web"
             },
             "production": {
-              "browserTarget": "angular-electron:build:production"
+              "browserTarget": "pharmacy-frontend-ng:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "angular-electron:build"
+            "browserTarget": "pharmacy-frontend-ng:build"
           }
         },
         "test": {
@@ -140,7 +142,7 @@
         }
       }
     },
-    "angular-electron-e2e": {
+    "pharmacy-frontend-ng-e2e": {
       "root": "e2e",
       "projectType": "application",
       "architect": {
@@ -155,7 +157,7 @@
       }
     }
   },
-  "defaultProject": "angular-electron",
+  "defaultProject": "pharmacy-frontend-ng",
   "schematics": {
     "@schematics/angular:component": {
       "prefix": "app",

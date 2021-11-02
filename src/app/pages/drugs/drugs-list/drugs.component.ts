@@ -16,7 +16,7 @@ let endPointDrugs = environment.api + 'drugs';
 @Component({
   selector: 'app-drugs',
   templateUrl: './drugs.component.html',
-  styleUrls: ['./drugs.component.css'],
+  styleUrls: ['./drugs.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
 export class DrugsComponent implements OnInit {

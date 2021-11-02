@@ -5,7 +5,7 @@ import { SalesOrderItem } from '../../../models/salesorderitem.model';
 @Component({
   selector: 'app-quantity-dialog',
   templateUrl: './quantity-dialog.component.html',
-  styleUrls: ['./quantity-dialog.component.css'],
+  styleUrls: ['./quantity-dialog.component.scss'],
 })
 export class QuantityDialogComponent implements OnInit {
   quantity: number = 1;

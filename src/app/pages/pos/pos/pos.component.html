@@ -1,5 +1,13 @@
 <div style="height: 100%; width: 100%" fxLayout="row">
   <div
+    class="overlay"
+    fxLayout="column"
+    fxLayoutAlign="center center"
+    *ngIf="isLoadingPayment"
+  >
+    <mat-spinner></mat-spinner>
+  </div>
+  <div
     fxLayout="column"
     fxLayoutAlign="start center"
     fxFlex="70"

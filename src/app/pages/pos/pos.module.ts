@@ -1,26 +1,23 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PosComponent } from './pos/pos.component';
-import { PosRoutingModule } from './pos-routing.module';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
-import { MatListModule } from '@angular/material/list';
-import { MatCardModule } from '@angular/material/card';
-
-import { MatButtonToggleModule } from '@angular/material/button-toggle';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { FormsModule } from '@angular/forms';
-import { QuantityDialogComponent } from './quantity-dialog/quantity-dialog.component';
+import { MatButtonModule } from '@angular/material/button';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule } from '@angular/material/dialog';
-import { PaymentDialogComponent } from './payment-dialog/payment-dialog.component';
-import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatInputModule } from '@angular/material/input';
+import { MatListModule } from '@angular/material/list';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { PosRoutingModule } from './pos-routing.module';
+import { PosComponent } from './pos/pos.component';
 
 @NgModule({
-  declarations: [PosComponent, QuantityDialogComponent, PaymentDialogComponent],
+  declarations: [PosComponent],
   imports: [
     CommonModule,
     PosRoutingModule,

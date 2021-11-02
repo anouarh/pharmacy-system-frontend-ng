@@ -22,9 +22,16 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { QuantityDialogComponent } from './pages/pos/quantity-dialog/quantity-dialog.component';
 import { PaymentDialogComponent } from './pages/pos/payment-dialog/payment-dialog.component';
 import { ConfirmationDialogComponent } from './pages/shared/confirmation-dialog/confirmation-dialog.component';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, ConfirmationDialogComponent],
+  declarations: [
+    AppComponent,
+    LoginComponent,
+    ConfirmationDialogComponent,
+    QuantityDialogComponent,
+    PaymentDialogComponent,
+  ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -43,6 +50,7 @@ import { ConfirmationDialogComponent } from './pages/shared/confirmation-dialog/
     FormsModule,
     MatDialogModule,
     MatProgressSpinnerModule,
+    MatButtonToggleModule,
   ],
   providers: [
     {

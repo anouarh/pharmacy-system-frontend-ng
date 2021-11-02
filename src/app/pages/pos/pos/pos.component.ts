@@ -17,6 +17,7 @@ import {
 } from '../../shared/confirmation-dialog/confirmation-dialog.component';
 import { PaymentDialogComponent } from '../payment-dialog/payment-dialog.component';
 import { QuantityDialogComponent } from '../quantity-dialog/quantity-dialog.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 export class PaymentDialogData {
   salesOrder: SalesOrder;
@@ -26,7 +27,7 @@ export class PaymentDialogData {
 @Component({
   selector: 'app-pos',
   templateUrl: './pos.component.html',
-  styleUrls: ['./pos.component.css'],
+  styleUrls: ['./pos.component.scss'],
 })
 export class PosComponent implements OnInit {
   salesOrder: SalesOrder;
@@ -34,6 +35,7 @@ export class PosComponent implements OnInit {
   drugs: any;
   currentUser: any;
   totalPrice: number = 0;
+  durationInSeconds = 5;
 
   faCartPlus = faCartPlus;
   faInfoCircle = faInfoCircle;
@@ -41,12 +43,14 @@ export class PosComponent implements OnInit {
   faTrash = faTrash;
   quantity: number = 1;
   isLoadingResults: boolean = false;
+  isLoadingPayment: boolean = false;
 
   constructor(
     public dialog: MatDialog,
     private router: Router,
     private drugsService: DrugsService,
-    private salesOrderService: SalesOrderService
+    private salesOrderService: SalesOrderService,
+    private _snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -162,13 +166,31 @@ export class PosComponent implements OnInit {
 
   saveSalesOrder(data) {
     if (data != undefined) {
-      console.log(data.salesOrder);
+      this.isLoadingPayment = true;
       this.salesOrderService
         .saveSalesOrder(data.salesOrder)
         .subscribe((result) => {
-          console.log(result);
-          window.location.reload();
+          this.isLoadingPayment = false;
+          this.openSnackBar();
         });
     }
   }
+  openSnackBar() {
+    this._snackBar.openFromComponent(SuccessfulSaleComponent, {
+      duration: this.durationInSeconds * 1000,
+    });
+  }
 }
+
+@Component({
+  selector: 'successfulsale-snackbar',
+  templateUrl: 'successfulsale-snackbar.html',
+  styles: [
+    `
+      .example-pizza-party {
+        color: hotpink;
+      }
+    `,
+  ],
+})
+export class SuccessfulSaleComponent {}

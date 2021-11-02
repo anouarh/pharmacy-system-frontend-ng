@@ -5,7 +5,7 @@ import { PaymentDialogData } from '../pos/pos.component';
 @Component({
   selector: 'app-payment-dialog',
   templateUrl: './payment-dialog.component.html',
-  styleUrls: ['./payment-dialog.component.css'],
+  styleUrls: ['./payment-dialog.component.scss'],
 })
 export class PaymentDialogComponent implements OnInit {
   cash: number;
