@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
-import { environment } from 'src/environments/environment';
+import { environment } from '../../environments/environment';
 import { User } from '../models/user.model';
 
 let apiUrl = environment.api;

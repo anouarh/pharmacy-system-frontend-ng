@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { SalesOrderItem } from 'src/app/models/salesorderitem.model';
+import { SalesOrderItem } from '../../../models/salesorderitem.model';
 
 @Component({
   selector: 'app-quantity-dialog',

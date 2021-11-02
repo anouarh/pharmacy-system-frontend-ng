@@ -1,9 +1,10 @@
 export const APP_CONFIG = {
-  production: true,
-  environment: 'PROD',
+  production: false,
+  environment: 'DEV',
 };
+
 export const environment = {
-  production: true,
+  production: false,
   api: 'https://blooming-ravine-65676.herokuapp.com/',
   authUrl: 'https://blooming-ravine-65676.herokuapp.com/oauth/token',
 };

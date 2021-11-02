@@ -3,8 +3,8 @@ import {
   faArrowRight,
   faMoneyBillWave,
 } from '@fortawesome/free-solid-svg-icons';
-import { DrugsService } from 'src/app/services/drugs.service';
-import { SalesOrderService } from 'src/app/services/salesorder.service';
+import { DrugsService } from '../../services/drugs.service';
+import { SalesOrderService } from '../../services/salesorder.service';
 
 @Component({
   selector: 'app-dashboard',

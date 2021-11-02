@@ -6,9 +6,9 @@ import {
   faSearch,
   faTrash,
 } from '@fortawesome/free-solid-svg-icons';
-import { DrugsService } from 'src/app/services/drugs.service';
-import { HttpService } from 'src/app/services/http.service';
-import { environment } from 'src/environments/environment';
+import { environment } from '../../../../environments/environment';
+import { DrugsService } from '../../../services/drugs.service';
+import { HttpService } from '../../../services/http.service';
 import { DrugsSearchDialogComponent } from '../drugs-search-dialog/drugs-search-dialog.component';
 
 let endPointDrugs = environment.api + 'drugs';

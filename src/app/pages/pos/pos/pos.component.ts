@@ -7,10 +7,10 @@ import {
   faInfoCircle,
   faTrash,
 } from '@fortawesome/free-solid-svg-icons';
-import { SalesOrder } from 'src/app/models/salesorder.model';
-import { SalesOrderItem } from 'src/app/models/salesorderitem.model';
-import { DrugsService } from 'src/app/services/drugs.service';
-import { SalesOrderService } from 'src/app/services/salesorder.service';
+import { SalesOrder } from '../../../models/salesorder.model';
+import { SalesOrderItem } from '../../../models/salesorderitem.model';
+import { DrugsService } from '../../../services/drugs.service';
+import { SalesOrderService } from '../../../services/salesorder.service';
 import {
   ConfirmationDialogComponent,
   ConfirmDialogModel,
