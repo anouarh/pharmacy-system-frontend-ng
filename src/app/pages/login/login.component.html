@@ -4,8 +4,10 @@
     fxLayout="column"
     fxLayoutAlign="center center"
     *ngIf="isLoading"
+    fxLayoutGap="20px"
   >
     <mat-spinner></mat-spinner>
+    <p>Chargement...</p>
   </div>
   <form
     action="submit"

@@ -6,7 +6,7 @@ import { AuthGuard } from './services/auth.guard';
 import { IsSignedInGuard } from './services/issignedin.guard';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/', pathMatch: 'full' },
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
 
   {
     path: 'drugs',
