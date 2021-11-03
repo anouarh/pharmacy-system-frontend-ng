@@ -1,17 +1,18 @@
-import { app, BrowserWindow, screen } from 'electron';
+import { app, BrowserWindow, screen, ipcMain } from 'electron';
 import * as path from 'path';
 import * as fs from 'fs';
 import * as url from 'url';
+import { autoUpdater } from 'electron-updater';
 
 // Initialize remote module
 require('@electron/remote/main').initialize();
 
 let win: BrowserWindow = null;
 const args = process.argv.slice(1),
-  serve = args.some(val => val === '--serve');
+  serve = args.some((val) => val === '--serve');
+const log = require('electron-log');
 
 function createWindow(): BrowserWindow {
-
   const electronScreen = screen;
   const size = electronScreen.getPrimaryDisplay().workAreaSize;
 
@@ -23,17 +24,16 @@ function createWindow(): BrowserWindow {
     height: size.height,
     webPreferences: {
       nodeIntegration: true,
-      allowRunningInsecureContent: (serve) ? true : false,
-      contextIsolation: false,  // false if you want to run e2e test with Spectron
-      enableRemoteModule : true // true if you want to run e2e test with Spectron or use remote module in renderer context (ie. Angular)
+      allowRunningInsecureContent: serve ? true : false,
+      contextIsolation: false, // false if you want to run e2e test with Spectron
+      enableRemoteModule: true, // true if you want to run e2e test with Spectron or use remote module in renderer context (ie. Angular)
     },
   });
-
 
   if (serve) {
     win.webContents.openDevTools();
     require('electron-reload')(__dirname, {
-      electron: require(path.join(__dirname, '/../node_modules/electron'))
+      electron: require(path.join(__dirname, '/../node_modules/electron')),
     });
     win.loadURL('http://localhost:4200');
   } else {
@@ -41,15 +41,17 @@ function createWindow(): BrowserWindow {
     let pathIndex = './index.html';
 
     if (fs.existsSync(path.join(__dirname, '../dist/index.html'))) {
-       // Path when running electron in local folder
+      // Path when running electron in local folder
       pathIndex = '../dist/index.html';
     }
 
-    win.loadURL(url.format({
-      pathname: path.join(__dirname, pathIndex),
-      protocol: 'file:',
-      slashes: true
-    }));
+    win.loadURL(
+      url.format({
+        pathname: path.join(__dirname, pathIndex),
+        protocol: 'file:',
+        slashes: true,
+      })
+    );
   }
 
   // Emitted when the window is closed.
@@ -84,10 +86,25 @@ try {
     // dock icon is clicked and there are no other windows open.
     if (win === null) {
       createWindow();
+      win.once('ready-to-show', () => {
+        autoUpdater.checkForUpdatesAndNotify();
+      });
     }
   });
-
+  ipcMain.on('app_version', (event) => {
+    event.sender.send('app_version', { version: app.getVersion() });
+  });
+  ipcMain.on('restart_app', () => {
+    autoUpdater.quitAndInstall();
+  });
 } catch (e) {
   // Catch Error
   // throw e;
 }
+
+autoUpdater.on('update-available', () => {
+  win.webContents.send('update_available');
+});
+autoUpdater.on('update-downloaded', () => {
+  win.webContents.send('update_downloaded');
+});
