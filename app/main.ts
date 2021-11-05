@@ -10,7 +10,7 @@ require('@electron/remote/main').initialize();
 let win: BrowserWindow = null;
 const args = process.argv.slice(1),
   serve = args.some((val) => val === '--serve');
-const log = require('electron-log');
+//const log = require('electron-log');
 
 function createWindow(): BrowserWindow {
   const electronScreen = screen;
