@@ -33,7 +33,7 @@
               "node_modules/font-awesome/css/font-awesome.css",
               "src/styles.scss"
             ],
-            "scripts": [],
+            "scripts": ["src/autoupdater.js"],
             "customWebpackConfig": {
               "path": "./angular.webpack.js"
             }
