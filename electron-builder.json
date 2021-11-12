@@ -35,8 +35,7 @@
   "publish": [
     {
       "provider": "github",
-      "token": "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",
-      "releaseType": "release"
+      "private": true
     }
   ]
 }
