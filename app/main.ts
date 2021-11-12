@@ -1,10 +1,8 @@
-import { app, BrowserWindow, screen, globalShortcut } from 'electron';
+import { app, BrowserWindow, ipcMain, screen } from 'electron';
+import { autoUpdater } from 'electron-updater';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as url from 'url';
-import { updateHandler } from './update-handler';
-import { receiveMessageFromRender } from './receive-message-from-render';
-import { shortcutRegister } from './shortcut-register';
 
 // Initialize remote module
 require('@electron/remote/main').initialize();
@@ -56,8 +54,6 @@ function createWindow(): BrowserWindow {
     );
   }
 
-  win.setMenuBarVisibility(false);
-
   // Emitted when the window is closed.
   win.on('closed', () => {
     // Dereference the window object, usually you would store window
@@ -66,10 +62,6 @@ function createWindow(): BrowserWindow {
     win = null;
   });
 
-  app.requestSingleInstanceLock();
-  updateHandler();
-  receiveMessageFromRender();
-  shortcutRegister();
   return win;
 }
 
@@ -94,10 +86,22 @@ try {
     // dock icon is clicked and there are no other windows open.
     if (win === null) {
       createWindow();
+      win.once('ready-to-show', () => {
+        autoUpdater.checkForUpdatesAndNotify();
+      });
     }
   });
-  app.on('will-quit', () => {
-    globalShortcut.unregisterAll();
+  ipcMain.on('app_version', (event) => {
+    event.sender.send('app_version', { version: app.getVersion() });
+  });
+  autoUpdater.on('update-available', () => {
+    win.webContents.send('update_available');
+  });
+  autoUpdater.on('update-downloaded', () => {
+    win.webContents.send('update_downloaded');
+  });
+  ipcMain.on('restart_app', () => {
+    autoUpdater.quitAndInstall();
   });
 } catch (e) {
   // Catch Error

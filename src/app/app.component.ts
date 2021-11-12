@@ -1,4 +1,4 @@
-import { Component, OnChanges, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import {
   faBars,
@@ -21,7 +21,7 @@ import { AuthService } from './services/auth.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent implements OnInit, OnDestroy, OnChanges {
+export class AppComponent implements OnInit, OnDestroy {
   isAuthenticated = false;
   private userSub: Subscription;
   title = 'PharmaSys';
@@ -39,27 +39,27 @@ export class AppComponent implements OnInit, OnDestroy, OnChanges {
   faReceipt = faReceipt;
   ipcRenderer: typeof ipcRenderer;
   messages: string;
+  version: string;
+  updateAvailable: boolean;
+  updateDownloaded: boolean;
 
   constructor(private auth: AuthService, private router: Router) {
-    if (this.isElectron()) {
-      this.ipcRenderer = window.require('electron').ipcRenderer;
-      this.ipcRenderer.on('message', (arg, data) => {
-        this.messages = data;
-      });
-
-      this.ipcRenderer.on('downloadProgress', (event, data) => {
-        console.log(data);
-      });
-    }
+    ipcRenderer.send('app_version');
+    ipcRenderer.on('app_version', (event, arg) => {
+      ipcRenderer.removeAllListeners('app_version');
+      this.version = 'Version ' + arg.version;
+      console.log(this.version);
+    });
+    ipcRenderer.on('update_available', () => {
+      ipcRenderer.removeAllListeners('update_available');
+      this.updateAvailable = true;
+    });
+    ipcRenderer.on('update_downloaded', () => {
+      ipcRenderer.removeAllListeners('update_downloaded');
+      this.updateDownloaded = true;
+      ipcRenderer.send('restart_app');
+    });
   }
-
-  ngOnChanges(): void {
-    console.log(this.messages);
-  }
-
-  isElectron = () => {
-    return window && window.process && window.process.type;
-  };
 
   ngOnInit(): void {
     this.auth.autoLogin();
