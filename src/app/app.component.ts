@@ -12,7 +12,7 @@ import {
   faTachometerAlt,
   faUserCircle,
 } from '@fortawesome/free-solid-svg-icons';
-import { ipcRenderer } from 'electron';
+import { ipcRenderer, dialog } from 'electron';
 import { Subscription } from 'rxjs';
 import { AuthService } from './services/auth.service';
 
@@ -57,7 +57,22 @@ export class AppComponent implements OnInit, OnDestroy {
     ipcRenderer.on('update_downloaded', () => {
       ipcRenderer.removeAllListeners('update_downloaded');
       this.updateDownloaded = true;
-      ipcRenderer.send('restart_app');
+      const options = {
+        type: 'question',
+        buttons: ['Non', 'Oui'],
+        defaultId: 0,
+        title: 'Mise à jour',
+        message: process.platform === 'win32' ? releaseNotes : releaseName,
+        detail:
+          'La nouvelle version a été téléchargée, veuillez fermer le programme et installer la nouvelle version',
+        checkboxLabel: 'Remember my answer',
+        checkboxChecked: true,
+      };
+      dialog.showMessageBox(null, options).then((res) => {
+        if (res.response === 0) {
+          ipcRenderer.send('restart_app');
+        }
+      });
     });
   }
 
