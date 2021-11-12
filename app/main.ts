@@ -1,4 +1,4 @@
-import { app, BrowserWindow, screen } from 'electron';
+import { app, BrowserWindow, screen, globalShortcut } from 'electron';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as url from 'url';
@@ -14,7 +14,7 @@ const args = process.argv.slice(1),
   serve = args.some((val) => val === '--serve');
 //const log = require('electron-log');
 
-function createWindow() {
+function createWindow(): BrowserWindow {
   const electronScreen = screen;
   const size = electronScreen.getPrimaryDisplay().workAreaSize;
 
@@ -70,6 +70,7 @@ function createWindow() {
   updateHandler();
   receiveMessageFromRender();
   shortcutRegister();
+  return win;
 }
 
 try {
@@ -94,6 +95,9 @@ try {
     if (win === null) {
       createWindow();
     }
+  });
+  app.on('will-quit', () => {
+    globalShortcut.unregisterAll();
   });
 } catch (e) {
   // Catch Error
