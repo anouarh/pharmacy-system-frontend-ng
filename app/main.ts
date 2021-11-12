@@ -1,18 +1,20 @@
-import { app, BrowserWindow, screen, ipcMain } from 'electron';
-import * as path from 'path';
+import { app, BrowserWindow, screen } from 'electron';
 import * as fs from 'fs';
+import * as path from 'path';
 import * as url from 'url';
-import { autoUpdater } from 'electron-updater';
+import { updateHandler } from './update-handler';
+import { receiveMessageFromRender } from './receive-message-from-render';
+import { shortcutRegister } from './shortcut-register';
 
 // Initialize remote module
 require('@electron/remote/main').initialize();
 
-let win: BrowserWindow = null;
+export let win: BrowserWindow = null;
 const args = process.argv.slice(1),
   serve = args.some((val) => val === '--serve');
 //const log = require('electron-log');
 
-function createWindow(): BrowserWindow {
+function createWindow() {
   const electronScreen = screen;
   const size = electronScreen.getPrimaryDisplay().workAreaSize;
 
@@ -54,6 +56,8 @@ function createWindow(): BrowserWindow {
     );
   }
 
+  win.setMenuBarVisibility(false);
+
   // Emitted when the window is closed.
   win.on('closed', () => {
     // Dereference the window object, usually you would store window
@@ -62,7 +66,10 @@ function createWindow(): BrowserWindow {
     win = null;
   });
 
-  return win;
+  app.requestSingleInstanceLock();
+  updateHandler();
+  receiveMessageFromRender();
+  shortcutRegister();
 }
 
 try {
@@ -86,25 +93,9 @@ try {
     // dock icon is clicked and there are no other windows open.
     if (win === null) {
       createWindow();
-      win.once('ready-to-show', () => {
-        autoUpdater.checkForUpdatesAndNotify();
-      });
     }
-  });
-  ipcMain.on('app_version', (event) => {
-    event.sender.send('app_version', { version: app.getVersion() });
-  });
-  ipcMain.on('restart_app', () => {
-    autoUpdater.quitAndInstall();
   });
 } catch (e) {
   // Catch Error
   // throw e;
 }
-
-autoUpdater.on('update-available', () => {
-  win.webContents.send('update_available');
-});
-autoUpdater.on('update-downloaded', () => {
-  win.webContents.send('update_downloaded');
-});
