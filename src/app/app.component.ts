@@ -44,36 +44,41 @@ export class AppComponent implements OnInit, OnDestroy {
   updateDownloaded: boolean;
 
   constructor(private auth: AuthService, private router: Router) {
-    ipcRenderer.send('app_version');
-    ipcRenderer.on('app_version', (event, arg) => {
-      ipcRenderer.removeAllListeners('app_version');
-      this.version = 'Version ' + arg.version;
-      console.log(this.version);
-    });
-    ipcRenderer.on('update_available', () => {
-      ipcRenderer.removeAllListeners('update_available');
-      this.updateAvailable = true;
-    });
-    ipcRenderer.on('update_downloaded', () => {
-      ipcRenderer.removeAllListeners('update_downloaded');
-      this.updateDownloaded = true;
-      const options = {
-        type: 'question',
-        buttons: ['Non', 'Oui'],
-        defaultId: 0,
-        title: 'Mise à jour',
-        message: process.platform === 'win32' ? releaseNotes : releaseName,
-        detail:
-          'La nouvelle version a été téléchargée, veuillez fermer le programme et installer la nouvelle version',
-        checkboxLabel: 'Remember my answer',
-        checkboxChecked: true,
-      };
-      dialog.showMessageBox(null, options).then((res) => {
-        if (res.response === 0) {
-          ipcRenderer.send('restart_app');
-        }
+    if (this.isElectron()) {
+      ipcRenderer.send('app_version');
+      ipcRenderer.on('app_version', (event, arg) => {
+        ipcRenderer.removeAllListeners('app_version');
+        this.version = 'Version ' + arg.version;
+        console.log(this.version);
       });
-    });
+      ipcRenderer.on('update_available', () => {
+        ipcRenderer.removeAllListeners('update_available');
+        console.log("Update is available!")
+      });
+      ipcRenderer.on('update_downloaded', () => {
+        ipcRenderer.removeAllListeners('update_downloaded');
+        this.updateDownloaded = true;
+        const options = {
+          type: 'question',
+          buttons: ['Non', 'Oui'],
+          defaultId: 0,
+          title: 'Mise à jour',
+          message:
+            process.platform === 'win32'
+              ? 'Est ce que vous voulez installer la mise à jour?'
+              : 'Est ce que vous voulez installer la mise à jour?',
+          detail:
+            'La nouvelle version a été téléchargée, veuillez fermer le programme et installer la nouvelle version',
+          checkboxLabel: 'Remember my answer',
+          checkboxChecked: true,
+        };
+        dialog.showMessageBox(null, options).then((res) => {
+          if (res.response === 0) {
+            ipcRenderer.send('restart_app');
+          }
+        });
+      });
+    }
   }
 
   ngOnInit(): void {
@@ -93,4 +98,8 @@ export class AppComponent implements OnInit, OnDestroy {
     this.auth.logout();
     this.router.navigate(['login']);
   }
+
+  isElectron = () => {
+    return window && window.process && window.process.type;
+  };
 }
