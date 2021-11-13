@@ -11,6 +11,7 @@ export let win: BrowserWindow = null;
 const args = process.argv.slice(1),
   serve = args.some((val) => val === '--serve');
 //const log = require('electron-log');
+const kill = require('tree-kill');
 
 function createWindow(): BrowserWindow {
   const electronScreen = screen;
@@ -29,6 +30,8 @@ function createWindow(): BrowserWindow {
       enableRemoteModule: true, // true if you want to run e2e test with Spectron or use remote module in renderer context (ie. Angular)
     },
   });
+  let jarPath = app.getAppPath() + '\\jar\\app-0.0.1-SNAPSHOT';
+  let child = require('child_process').spawn('java', ['-jar', jarPath, '']);
 
   if (serve) {
     win.webContents.openDevTools();
@@ -60,6 +63,7 @@ function createWindow(): BrowserWindow {
     // in an array if your app supports multi windows, this is the time
     // when you should delete the corresponding element.
     win = null;
+    kill(child.pid);
   });
 
   return win;
@@ -86,6 +90,7 @@ try {
     // dock icon is clicked and there are no other windows open.
     if (win === null) {
       createWindow();
+
       win.once('ready-to-show', () => {
         autoUpdater.checkForUpdatesAndNotify();
       });
