@@ -12,6 +12,8 @@ const args = process.argv.slice(1),
   serve = args.some((val) => val === '--serve');
 //const log = require('electron-log');
 const kill = require('tree-kill');
+let jarPath = app.getAppPath() + '\\app\\jar\\app-0.0.1-SNAPSHOT.jar';
+let child = require('child_process').spawn('java', ['-jar', jarPath, '']);
 
 function createWindow(): BrowserWindow {
   const electronScreen = screen;
@@ -30,8 +32,6 @@ function createWindow(): BrowserWindow {
       enableRemoteModule: true, // true if you want to run e2e test with Spectron or use remote module in renderer context (ie. Angular)
     },
   });
-  let jarPath = app.getAppPath() + '\\jar\\app-0.0.1-SNAPSHOT';
-  let child = require('child_process').spawn('java', ['-jar', jarPath, '']);
 
   if (serve) {
     win.webContents.openDevTools();
@@ -62,8 +62,8 @@ function createWindow(): BrowserWindow {
     // Dereference the window object, usually you would store window
     // in an array if your app supports multi windows, this is the time
     // when you should delete the corresponding element.
+    //kill(child.pid);
     win = null;
-    kill(child.pid);
   });
 
   return win;
@@ -88,9 +88,9 @@ try {
   app.on('activate', () => {
     // On OS X it's common to re-create a window in the app when the
     // dock icon is clicked and there are no other windows open.
+
     if (win === null) {
       createWindow();
-
       win.once('ready-to-show', () => {
         autoUpdater.checkForUpdatesAndNotify();
       });
@@ -98,6 +98,9 @@ try {
   });
   ipcMain.on('app_version', (event) => {
     event.sender.send('app_version', { version: app.getVersion() });
+  });
+  ipcMain.on('jar_path', (event) => {
+    event.sender.send('jar_path', { jarPath: jarPath });
   });
   autoUpdater.on('update-available', () => {
     win.webContents.send('update_available');

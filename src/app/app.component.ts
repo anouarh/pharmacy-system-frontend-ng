@@ -48,12 +48,12 @@ export class AppComponent implements OnInit, OnDestroy {
       ipcRenderer.send('app_version');
       ipcRenderer.on('app_version', (event, arg) => {
         ipcRenderer.removeAllListeners('app_version');
-        this.version = 'Version ' + arg.version;
-        console.log(this.version);
+        this.version = arg.version;
       });
+
       ipcRenderer.on('update_available', () => {
         ipcRenderer.removeAllListeners('update_available');
-        console.log("Update is available!")
+        console.log('Update is available!');
       });
       ipcRenderer.on('update_downloaded', () => {
         ipcRenderer.removeAllListeners('update_downloaded');
