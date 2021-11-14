@@ -44,7 +44,7 @@ export class AppComponent implements OnInit, OnDestroy {
   updateDownloaded: boolean;
 
   constructor(private auth: AuthService, private router: Router) {
-    if (this.isElectron()) {
+    /*if (this.isElectron()) {
       ipcRenderer.send('app_version');
       ipcRenderer.on('app_version', (event, arg) => {
         ipcRenderer.removeAllListeners('app_version');
@@ -78,7 +78,7 @@ export class AppComponent implements OnInit, OnDestroy {
           }
         });
       });
-    }
+    }*/
   }
 
   ngOnInit(): void {
