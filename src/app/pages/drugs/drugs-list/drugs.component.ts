@@ -40,6 +40,8 @@ export class DrugsComponent implements OnInit {
   faSearch = faSearch;
   faPlus = faPlus;
 
+  name: string;
+
   constructor(
     public http: HttpService,
     public drugService: DrugsService,
@@ -83,5 +85,9 @@ export class DrugsComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       console.log('The dialog was closed');
     });
+  }
+
+  onEnter() {
+    console.log(this.name);
   }
 }

@@ -20,4 +20,14 @@ export class DrugsService implements OnInit {
       DrugsService.baseUrl + 'inventoryItems/inventoryItemsByUser/' + username
     );
   }
+
+  searchByName(username: string, drugName: string) {
+    return this.http.get(
+      DrugsService.baseUrl +
+        'inventoryItems/findByName/' +
+        username +
+        '?name=' +
+        drugName
+    );
+  }
 }

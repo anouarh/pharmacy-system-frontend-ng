@@ -16,7 +16,7 @@
     <mat-progress-bar *ngIf="isLoadingResults" mode="query"></mat-progress-bar>
     <mat-form-field style="width: 100%" appearance="fill">
       <mat-label>Rechercher un médicament</mat-label>
-      <input matInput />
+      <input [(ngModel)]="name" matInput (keyup.enter)="onEnter()" />
     </mat-form-field>
     <div fxLayout="row">
       <mat-card

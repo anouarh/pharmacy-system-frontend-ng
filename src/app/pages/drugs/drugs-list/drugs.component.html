@@ -14,7 +14,7 @@
 
   <mat-form-field>
     <mat-label>Rechercher</mat-label>
-    <input matInput />
+    <input [(ngModel)]="name" matInput (keyup.enter)="onEnter()" />
     <fa-icon matSuffix [icon]="faSearch" size="lg"></fa-icon>
   </mat-form-field>
 </div>

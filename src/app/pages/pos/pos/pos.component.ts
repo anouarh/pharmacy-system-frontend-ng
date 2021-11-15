@@ -45,6 +45,8 @@ export class PosComponent implements OnInit {
   isLoadingResults: boolean = false;
   isLoadingPayment: boolean = false;
 
+  name: string;
+
   constructor(
     public dialog: MatDialog,
     private router: Router,
@@ -55,7 +57,7 @@ export class PosComponent implements OnInit {
 
   ngOnInit(): void {
     this.getUserData();
-    this.getAllDrugs();
+    //this.getAllDrugs();
   }
 
   getUserData() {
@@ -179,6 +181,18 @@ export class PosComponent implements OnInit {
     this._snackBar.openFromComponent(SuccessfulSaleComponent, {
       duration: this.durationInSeconds * 1000,
     });
+  }
+
+  onEnter() {
+    console.log(this.name);
+    this.isLoadingResults = true;
+    this.drugsService
+      .searchByName(this.currentUser.username, this.name)
+      .subscribe((result) => {
+        this.drugs = result;
+        this.isLoadingResults = false;
+        localStorage.getItem('userData');
+      });
   }
 }
 
